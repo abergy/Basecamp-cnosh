@@ -36,22 +36,22 @@ void WebServer::begin(Configuration &configuration, std::function<void()> submit
 			request->send(response);
 	});
 
-	server.on("/basecamp.css" , HTTP_GET, [](AsyncWebServerRequest * request)
+	server.on("/main.css" , HTTP_GET, [](AsyncWebServerRequest * request)
 	{
-			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/css", basecamp_css_gz, basecamp_css_gz_len);
+			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/css", main_css_gz, main_css_gz_len);
 			response->addHeader("Content-Encoding", "gzip");
 			request->send(response);
 	});
 
-	server.on("/basecamp.js" , HTTP_GET, [](AsyncWebServerRequest * request)
+	server.on("/main.js" , HTTP_GET, [](AsyncWebServerRequest * request)
 	{
-			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/js", basecamp_js_gz, basecamp_js_gz_len);
+			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/js", main_js_gz, main_js_gz_len);
 			response->addHeader("Content-Encoding", "gzip");
 			request->send(response);
 	});
-	server.on("/logo.svg" , HTTP_GET, [](AsyncWebServerRequest * request)
+	server.on("/logo.png" , HTTP_GET, [](AsyncWebServerRequest * request)
 	{
-			AsyncWebServerResponse *response = request->beginResponse_P(200, "image/svg+xml", logo_svg_gz, logo_svg_gz_len);
+			AsyncWebServerResponse *response = request->beginResponse_P(200, "image/png", logo_png_gz, logo_png_gz_len);
 			response->addHeader("Content-Encoding", "gzip");
 			request->send(response);
 	});

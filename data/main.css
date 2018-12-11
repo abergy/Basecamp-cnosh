@@ -1,0 +1,245 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #EDEDF2;
+}
+
+.container {
+  display: grid;
+
+  grid-template-areas:
+    "nav content";
+
+  grid-template-columns: 200px 1000px;
+  grid-template-rows: 1fr;
+  grid-gap: 10px;
+
+  height: 100vh;
+}
+
+/*
+  ##### Navigation #####
+  */
+
+nav {
+  grid-area: nav;
+  background-color: #2B2B2B;
+  color: white;
+}
+
+.logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.menu {
+  width: 200px;
+}
+
+.menu a {
+  font-size: 16px;
+  color: white;
+  display: block;
+  padding: 12px;
+  text-decoration: none;
+}
+
+.menu a:hover {
+  background-color: #353634;
+}
+
+.menu a.active {
+  background-color: #cf1717;
+  color: white;
+}
+
+#level {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+/*
+  ##### Main #####
+  */
+
+main {
+  grid-area: content;
+  padding: 20px 20px 0px 20px;
+}
+
+main h1 {
+  color: #2B2B2B;
+  font-weight: 100;
+}
+
+/*
+  ##### Form #####
+  */
+
+/* Style inputs, select elements and textareas */
+input[type=text],
+select,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+/* Style the label to display next to the inputs */
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+/* Style the submit button */
+input[type=submit] {
+  background-color: #cf1717;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  float: right;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+/* Style the container */
+.form {
+  border-radius: 5px;
+  padding-top: 20px;
+  font-size: 14px;
+}
+
+/* Floating column for labels: 25% width */
+.col-15 {
+  float: left;
+  width: 20%;
+  margin-top: 6px;
+}
+
+/* Floating column for inputs: 75% width */
+.col-85 {
+  float: left;
+  width: 80%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+
+  .col-25,
+  .col-75,
+  input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+
+.info {
+  background-color: #dbdbe1;
+  color: #505059;
+  font-size: 14px;
+  line-height: 1.8;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.info span {
+  font-weight: bold;
+}
+
+.button {
+  background-color: #cf1717;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  float: right;
+  margin-top: 20px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.left {
+  float: left;
+  margin-top: 0px;
+}
+
+/*
+ FORM -> increaser
+*/
+
+.value-button {
+  display: inline-block;
+  margin: 0px;
+  width: 40px;
+  height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 11px 0;
+  background: #dbdbe1;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.value-button:hover {
+  cursor: pointer;
+}
+
+form #decrease {
+  margin-right: -4px;
+  border-radius: 8px 0 0 8px;
+}
+
+form #increase {
+  margin-left: -4px;
+  border-radius: 0 8px 8px 0;
+}
+
+form #input-wrap {
+  margin: 0px;
+  padding: 0px;
+}
+
+input.number {
+  text-align: center;
+  border: none;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin: 0px;
+  width: 50px;
+  height: 40px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}

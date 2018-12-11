@@ -46,7 +46,7 @@ for i in $(ls -1); do
 	CONTENT=$(cat $i | xxd -i)
 	CONTENT_LEN=$(echo $CONTENT | grep -o '0x' | wc -l)
 	FILENAME=${i//[.]/_}
-	printf "#define "$FILENAME"_len "$CONTENT_LEN"\n" >> $OUTFILE
+	echo "#define "$FILENAME"_len"$CONTENT_LEN >> $OUTFILE
 	printf "const uint8_t "$FILENAME"[] PROGMEM {\n$CONTENT\n};" >> $OUTFILE
 	echo >> $OUTFILE
 	unset CONTENT
