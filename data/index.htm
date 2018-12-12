@@ -23,7 +23,6 @@
                 <a href="configuration.htm">Konfiguration</a>
             </div>
         </nav>
-
         <main>
             <h1>Netzwerk</h1>
             <div class="info">
@@ -31,9 +30,16 @@
                 deines Netzwerkes und das Passwort ein.<br>
                 cNosh wird daraufhin erneut starten und sich verbinden.
             </div>
-
             <div class="form" >
                 <form action="#" onsubmit="collectConfiguration()">
+                    <div class="row">
+                        <div class="col-15">
+                            <label for="ssid">Gerätename</label>
+                        </div>
+                        <div class="col-85">
+                            <input type="text" id="DeviceName" data-config="DeviceName" name="DeviceName" placeholder="Name des Gerätes im Netzwerk">
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-15">
                             <label for="ssid">SSID</label>
@@ -47,7 +53,7 @@
                             <label for="password">Passwort</label>
                         </div>
                         <div class="col-85">
-                            <input type="text" id="password" data-config="WifiPassword" name="password" placeholder="Passwort">
+                            <input type="password" id="password" data-config="WifiPassword" name="password" placeholder="Passwort">
                         </div>
                     </div>
                     <input id="WifiConfigured" data-config="WifiConfigured" name="WifiConfigured" value="True" type="hidden"> 
@@ -59,5 +65,4 @@
         </main>
     </div>
 </body>
-
 </html>
