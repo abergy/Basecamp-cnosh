@@ -197,12 +197,12 @@ void Configuration::resetExcept(const std::list<ConfigurationKey> &keysToPreserv
 }
 
 void Configuration::dump() {
-#ifdef DEBUG
+//#ifdef DEBUG
 	for (const auto &p : configuration) {
 		Serial.print( "configuration[");
 		Serial.print(p.first);
 		Serial.print("] = ");
 		Serial.println(p.second);
 	}
-#endif
+//#endif
 }

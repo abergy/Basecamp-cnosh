@@ -29,6 +29,36 @@ enum class ConfigurationKey {
 	mqttPass,
 	otaActive,
 	otaPass,
+	// Settings
+	cnoshConfiguration,
+	startdate,
+	last_savedate,
+	lastfeedingtime,
+	total_amount_time,
+	total_amount_extra,
+	// Feeding times
+	time_1_h,
+	time_1_m,
+	time_2_h,
+	time_2_m,
+	time_3_h,
+	time_3_m,
+	time_4_h,
+	time_4_m,
+	time_amount_size,
+	// Cats
+	cat_1_used,
+	cat_1_uid,
+	cat_1_lastfeedingtime,
+	cat_1_extra_amount_size,
+	cat_1_extra_amount_number,
+	cat_1_extra_amount_delay,
+	cat_2_used,
+	cat_2_uid,
+	cat_2_lastfeedingtime,
+	cat_2_extra_amount_size,
+	cat_2_extra_amount_number,
+	cat_2_extra_amount_delay
 };
 
 // TODO: Extend with all known keys
@@ -73,6 +103,39 @@ static const String getKeyName(ConfigurationKey key)
 
 		case ConfigurationKey::otaPass:
 			return "OTAPass";
+
+		case ConfigurationKey::cnoshConfiguration:
+			return "cnoshConfiguration";
+
+		case ConfigurationKey::startdate:
+			return "startdate";
+
+		case ConfigurationKey::time_1_h:
+			return "time_1_h";
+
+		case ConfigurationKey::time_1_m:
+			return "time_1_m";
+
+		case ConfigurationKey::time_2_h:
+			return "time_2_h";
+
+		case ConfigurationKey::time_2_m:
+			return "time_2_m";
+
+		case ConfigurationKey::time_3_h:
+			return "time_3_h";
+
+		case ConfigurationKey::time_3_m:
+			return "time_3_m";
+
+		case ConfigurationKey::time_4_h:
+			return "time_4_h";
+
+		case ConfigurationKey::time_4_m:
+			return "time_4_m";
+
+		case ConfigurationKey::time_amount_size:
+			return "time_amount_size";
 	}
 	return "";
 }
