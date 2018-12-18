@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>cNosh</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+
+    <script>
+        function increaseValue(a) {
+        var value = parseInt(document.getElementById(a).value, 10);
+        value = isNaN(value) ? 0 : value;
+        value++;
+        document.getElementById(a).value = value;
+        }
+
+        function decreaseValue(a) {
+        var value = parseInt(document.getElementById(a).value, 10);
+        value = isNaN(value) ? 0 : value;
+        value < 1 ? value = 1 : '';
+        value--;
+        document.getElementById(a).value = value;
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <img src="logo.png" alt="" class="logo">
+            <div id="level">Füllstand: 90%</div>
+            <div class="menu">
+                <a href="index.htm">Netzwerk</a>
+                <a href="profiles.htm" class="active">Profile</a>
+                <a href="feeding_times.htm">Fütterzeiten</a>
+                <a href="statistics.htm">Statistik</a>
+                <a href="configuration.htm">Konfiguration</a>
+            </div>
+        </nav>
+
+        <main>
+            <h1>Profile</h1>
+
+            <div class="info">
+                <span>Info: </span>Anzahl und Menge Extrafutter pro Tag.
+            </div>
+
+            <ul class="breadcrumb">
+                <li><a href="profiles.htm">Profile</a></li>
+                <li>Name der Katze</li>
+                <li>Futtermenge</li>
+            </ul>
+
+            <div class="form">
+                <form action="profiles.htm">
+                    <div class="row">
+                        <div class="col-15">
+                            <label for="cat_name">Anzahl Extrafutter</label>
+                        </div>
+                        <div class="col-85">
+                            <div class="value-button" id="decrease" onclick="decreaseValue('number_extra_food')" value="Decrease Value">-</div>
+                            <input type="number" id="number_extra_food" class="number" value="3" />
+                            <div class="value-button" id="increase" onclick="increaseValue('number_extra_food')" value="Increase Value">+</div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-15">
+                            <label for="cat_name">Menge pro Portion</label>
+                        </div>
+                        <div class="col-85">
+                            <div class="value-button" id="decrease" onclick="decreaseValue('quantity_per_portion')"
+                                value="Decrease Value">-</div>
+                            <input type="number" id="quantity_per_portion" class="number" value="100" />
+                            <div class="value-button" id="increase" onclick="increaseValue('quantity_per_portion')"
+                                value="Increase Value">+</div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-15">
+                            <label for="cat_name">Sperre nach Fütterung (Minuten)</label>
+                        </div>
+                        <div class="col-85">
+                            <div class="value-button" id="decrease" onclick="decreaseValue('lock_after_feeding')" value="Decrease Value">-</div>
+                            <input type="number" id="lock_after_feeding" class="number" value="60" />
+                            <div class="value-button" id="increase" onclick="increaseValue('lock_after_feeding')" value="Increase Value">+</div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <input type="submit" value="Speichern">
+                    </div>
+                </form>
+            </div>
+
+        </main>
+    </div>
+</body>
+
+</html>

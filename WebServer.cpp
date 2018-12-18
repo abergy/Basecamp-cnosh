@@ -35,6 +35,54 @@ void WebServer::begin(Configuration &configuration, std::function<void()> submit
 			response->addHeader("Content-Encoding", "gzip");
 			request->send(response);
 	});
+	server.on("/index.htm" , HTTP_GET, [](AsyncWebServerRequest * request)
+	{
+			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", index_htm_gz, index_htm_gz_len);
+			response->addHeader("Content-Encoding", "gzip");
+			request->send(response);
+	});
+	server.on("/configuration.htm" , HTTP_GET, [](AsyncWebServerRequest * request)
+	{
+			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", configuration_htm_gz, configuration_htm_gz_len);
+			response->addHeader("Content-Encoding", "gzip");
+			request->send(response);
+	});
+	server.on("/feeding_times.htm" , HTTP_GET, [](AsyncWebServerRequest * request)
+	{
+			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", feeding_times_htm_gz, feeding_times_htm_gz_len);
+			response->addHeader("Content-Encoding", "gzip");
+			request->send(response);
+	});
+	server.on("/profiles_add.htm" , HTTP_GET, [](AsyncWebServerRequest * request)
+	{
+			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", profiles_add_htm_gz, profiles_add_htm_gz_len);
+			response->addHeader("Content-Encoding", "gzip");
+			request->send(response);
+	});
+	server.on("/profiles_cat_amount.htm" , HTTP_GET, [](AsyncWebServerRequest * request)
+	{
+			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", profiles_cat_amount_htm_gz, profiles_cat_amount_htm_gz_len);
+			response->addHeader("Content-Encoding", "gzip");
+			request->send(response);
+	});
+	server.on("/profiles_cat_rfid.htm" , HTTP_GET, [](AsyncWebServerRequest * request)
+	{
+			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", profiles_cat_rfid_htm_gz, profiles_cat_rfid_htm_gz_len);
+			response->addHeader("Content-Encoding", "gzip");
+			request->send(response);
+	});
+	server.on("/profiles.htm" , HTTP_GET, [](AsyncWebServerRequest * request)
+	{
+			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", profiles_htm_gz, profiles_htm_gz_len);
+			response->addHeader("Content-Encoding", "gzip");
+			request->send(response);
+	});
+	server.on("/statistics.htm" , HTTP_GET, [](AsyncWebServerRequest * request)
+	{
+			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", statistics_htm_gz, statistics_htm_gz_len);
+			response->addHeader("Content-Encoding", "gzip");
+			request->send(response);
+	});
 
 	server.on("/main.css" , HTTP_GET, [](AsyncWebServerRequest * request)
 	{

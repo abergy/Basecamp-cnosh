@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>cNosh</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+  <script src="main.js"></script>
+
+  <script>
+    function increaseValue(a) {
+      var value = parseInt(document.getElementById(a).value, 10);
+      value = isNaN(value) ? 0 : value;
+      value++;
+      document.getElementById(a).value = value;
+      }
+
+      function decreaseValue(a) {
+      var value = parseInt(document.getElementById(a).value, 10);
+      value = isNaN(value) ? 0 : value;
+      value < 1 ? value = 1 : '';
+      value--;
+      document.getElementById(a).value = value;
+      }
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <nav>
+      <img src="logo.png" alt="" class="logo">
+      <div id="level">Füllstand: 90%</div>
+      <div class="menu">
+        <a href="index.htm">Netzwerk</a>
+        <a href="profiles.htm">Profile</a>
+        <a href="feeding_times.htm" class="active">Fütterzeiten</a>
+        <a href="statistics.htm">Statistik</a>
+        <a href="configuration.htm">Konfiguration</a>
+      </div>
+    </nav>
+
+    <main>
+      <h1>Profile</h1>
+
+      <div class="info">
+        <span>Info: </span>Hier kannst du feste Futterzeiten einstellen. Deine Katze wird dann zu diesen Zeiten
+        automatisch gefüttert.<br>
+        // Hier kommt eine Beschreibung der Menge hin. Wieviel Futter bei einer bestimmen Größe (S,M,XL,XLL) gefördert wird.
+      </div>
+
+      <div class="form">
+        <form action="#">
+          <div class="row">
+            <div class="col-15">
+              <label for="feeding_time_one">Futterzeit 1</label>
+            </div>
+            <div class="col-85">
+              <label for="feeding_time_one">Stunde</label>
+              <div class="value-button" id="decrease" onclick="decreaseValue('feeding_time_one_h')" value="Decrease Value">-</div>
+              <input type="number" id="feeding_time_one_h" class="number" value="9" />
+              <div class="value-button" id="increase" onclick="increaseValue('feeding_time_one_h')" value="Increase Value">+</div>
+
+              <label for="feeding_time_one" class="minutes">Minute</label>
+              <div class="value-button" id="decrease" onclick="decreaseValue('feeding_time_one_m')" value="Decrease Value">-</div>
+              <input type="number" id="feeding_time_one_m" class="number" value="15" />
+              <div class="value-button" id="increase" onclick="increaseValue('feeding_time_one_m')" value="Increase Value">+</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-15">
+              <label for="feeding_time_two">Futterzeit 2</label>
+            </div>
+            <div class="col-85">
+              <label for="feeding_time_two">Stunde</label>
+              <div class="value-button" id="decrease" onclick="decreaseValue('feeding_time_two_h')" value="Decrease Value">-</div>
+              <input type="number" id="feeding_time_two_h" class="number" value="13" />
+              <div class="value-button" id="increase" onclick="increaseValue('feeding_time_two_h')" value="Increase Value">+</div>
+
+              <label for="feeding_time_two" class="minutes">Minute</label>
+              <div class="value-button" id="decrease" onclick="decreaseValue('feeding_time_two_m')" value="Decrease Value">-</div>
+              <input type="number" id="feeding_time_two_m" class="number" value="0" />
+              <div class="value-button" id="increase" onclick="increaseValue('feeding_time_two_m')" value="Increase Value">+</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-15">
+              <label for="feeding_time_three">Futterzeit 3</label>
+            </div>
+            <div class="col-85">
+              <label for="feeding_time_three">Stunde</label>
+              <div class="value-button" id="decrease" onclick="decreaseValue('feeding_time_three_h')" value="Decrease Value">-</div>
+              <input type="number" id="feeding_time_three_h" class="number" value="19" />
+              <div class="value-button" id="increase" onclick="increaseValue('feeding_time_three_h')" value="Increase Value">+</div>
+
+              <label for="feeding_time_three" class="minutes">Minute</label>
+              <div class="value-button" id="decrease" onclick="decreaseValue('feeding_time_three_m')" value="Decrease Value">-</div>
+              <input type="number" id="feeding_time_three_m" class="number" value="30" />
+              <div class="value-button" id="increase" onclick="increaseValue('feeding_time_three_m')" value="Increase Value">+</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-15">
+              <label for="feeding_time_four">Futterzeit 4</label>
+            </div>
+            <div class="col-85">
+              <label for="feeding_time_four">Stunde</label>
+              <div class="value-button" id="decrease" onclick="decreaseValue('feeding_time_four_h')" value="Decrease Value">-</div>
+              <input type="number" id="feeding_time_four_h" class="number" value="22" />
+              <div class="value-button" id="increase" onclick="increaseValue('feeding_time_four_h')" value="Increase Value">+</div>
+
+              <label for="feeding_time_four" class="minutes">Minute</label>
+              <div class="value-button" id="decrease" onclick="decreaseValue('feeding_time_four_m')" value="Decrease Value">-</div>
+              <input type="number" id="feeding_time_four_m" class="number" value="0" />
+              <div class="value-button" id="increase" onclick="increaseValue('feeding_time_four_m')" value="Increase Value">+</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-15">
+              <label for="feeding_time_five">Futterzeit 5</label>
+            </div>
+            <div class="col-85">
+              <label for="feeding_time_five">Stunde</label>
+              <div class="value-button" id="decrease" onclick="decreaseValue('feeding_time_five_h')" value="Decrease Value">-</div>
+              <input type="number" id="feeding_time_five_h" class="number" value="3" />
+              <div class="value-button" id="increase" onclick="increaseValue('feeding_time_five_h')" value="Increase Value">+</div>
+
+              <label for="feeding_time_five" class="minutes">Minute</label>
+              <div class="value-button" id="decrease" onclick="decreaseValue('feeding_time_five_m')" value="Decrease Value">-</div>
+              <input type="number" id="feeding_time_five_m" class="number" value="3" />
+              <div class="value-button" id="increase" onclick="increaseValue('feeding_time_five_m')" value="Increase Value">+</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-15">
+              <label for="amount">Portionsgröße</label>
+            </div>
+            <div class="col-85">
+              <div class="value-button" id="decrease" onclick="decreaseValue('amount')" value="Decrease Value">-</div>
+              <input type="number" id="amount" class="number" value="3" />
+              <div class="value-button" id="increase" onclick="increaseValue('amount')" value="Increase Value">+</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <input type="submit" value="Speichern">
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+</body>
+
+</html>
