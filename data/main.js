@@ -47,6 +47,3 @@ function collectConfiguration() {
 	};
 
 }
-
-window.onload = function() {
-}
