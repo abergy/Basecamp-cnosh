@@ -33,7 +33,7 @@ enum class ConfigurationKey {
 	cnoshConfiguration,
 	startdate,
 	last_savedate,
-	lastfeedingtime,
+	last_feedingtime,
 	total_amount_time,
 	total_amount_extra,
 	// Feeding times
@@ -47,18 +47,30 @@ enum class ConfigurationKey {
 	time_4_m,
 	time_amount_size,
 	// Cats
-	cat_1_used,
-	cat_1_uid,
-	cat_1_lastfeedingtime,
-	cat_1_extra_amount_size,
-	cat_1_extra_amount_number,
-	cat_1_extra_amount_delay,
-	cat_2_used,
-	cat_2_uid,
-	cat_2_lastfeedingtime,
-	cat_2_extra_amount_size,
-	cat_2_extra_amount_number,
-	cat_2_extra_amount_delay
+	c1_uid,
+	c1_name,
+	c1_lastfeedingtime,
+	c1_extra_amount_size,
+	c1_extra_amount_number,
+	c1_extra_amount_count,
+	c1_extra_delay,
+	c1_created,
+	c2_uid,
+	c2_name,
+	c2_lastfeedingtime,
+	c2_extra_amount_size,
+	c2_extra_amount_number,
+	c2_extra_amount_count,
+	c2_extra_delay,
+	c2_created,
+	c3_uid,
+	c3_name,
+	c3_lastfeedingtime,
+	c3_extra_amount_size,
+	c3_extra_amount_number,
+	c3_extra_amount_count,
+	c3_extra_delay,
+	c3_created
 };
 
 // TODO: Extend with all known keys
@@ -103,13 +115,25 @@ static const String getKeyName(ConfigurationKey key)
 
 		case ConfigurationKey::otaPass:
 			return "OTAPass";
-
+// SETTINGS
 		case ConfigurationKey::cnoshConfiguration:
 			return "cnoshConfiguration";
 
 		case ConfigurationKey::startdate:
 			return "startdate";
 
+		case ConfigurationKey::last_savedate:
+			return "last_savedate";
+
+		case ConfigurationKey::last_feedingtime:
+			return "last_feedingtime";
+
+		case ConfigurationKey::total_amount_time:
+			return "total_amount_time";
+
+		case ConfigurationKey::total_amount_extra:
+			return "total_amount_extra";
+// FEEDING_TIMES
 		case ConfigurationKey::time_1_h:
 			return "time_1_h";
 
@@ -136,6 +160,78 @@ static const String getKeyName(ConfigurationKey key)
 
 		case ConfigurationKey::time_amount_size:
 			return "time_amount_size";
+// CATS
+		case ConfigurationKey::c1_uid:
+			return "c1_uid";
+
+		case ConfigurationKey::c1_name:
+			return "c1_name";
+
+		case ConfigurationKey::c1_lastfeedingtime:
+			return "c1_lastfeedingtime";
+
+		case ConfigurationKey::c1_extra_amount_size:
+			return "c1_extra_amount_size";
+
+		case ConfigurationKey::c1_extra_amount_number:
+			return "c1_extra_amount_number";
+
+		case ConfigurationKey::c1_extra_amount_count:
+			return "c1_extra_amount_count";
+
+		case ConfigurationKey::c1_extra_delay:
+			return "c1_extra_delay";
+
+		case ConfigurationKey::c1_created:
+			return "c1_created";
+
+		case ConfigurationKey::c2_uid:
+			return "c2_uid";
+
+		case ConfigurationKey::c2_name:
+			return "c2_name";
+
+		case ConfigurationKey::c2_lastfeedingtime:
+			return "c2_lastfeedingtime";
+
+		case ConfigurationKey::c2_extra_amount_size:
+			return "c2_extra_amount_size";
+
+		case ConfigurationKey::c2_extra_amount_number:
+			return "c2_extra_amount_number";
+
+		case ConfigurationKey::c2_extra_amount_count:
+			return "c2_extra_amount_count";
+
+		case ConfigurationKey::c2_extra_delay:
+			return "c2_extra_delay";
+
+		case ConfigurationKey::c2_created:
+			return "c2_created";
+
+		case ConfigurationKey::c3_uid:
+			return "c3_uid";
+
+		case ConfigurationKey::c3_name:
+			return "c3_name";
+
+		case ConfigurationKey::c3_lastfeedingtime:
+			return "c3_lastfeedingtime";
+
+		case ConfigurationKey::c3_extra_amount_size:
+			return "c3_extra_amount_size";
+
+		case ConfigurationKey::c3_extra_amount_number:
+			return "c3_extra_amount_number";
+
+		case ConfigurationKey::c3_extra_amount_count:
+			return "c3_extra_amount_count";
+
+		case ConfigurationKey::c3_extra_delay:
+			return "c3_extra_delay";
+
+		case ConfigurationKey::c3_created:
+			return "c3_created";
 	}
 	return "";
 }
