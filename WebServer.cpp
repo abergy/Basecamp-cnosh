@@ -190,15 +190,11 @@ void WebServer::begin(Configuration &configuration, std::function<void()> submit
 				AsyncWebParameter *webParameter = request->getParam(i);
 				if (webParameter->isPost() && webParameter->value().length() != 0)
 				{
-					//configuration.set(webParameter->name().c_str(), webParameter->value().c_str());
-					Serial.print("Key: ");
-					Serial.println(webParameter->name().c_str());
-					Serial.print("Value: ");
-					Serial.println(webParameter->value().c_str());	 
+					configuration.set(webParameter->name().c_str(), webParameter->value().c_str());
 				}
 			}
 
-			//configuration.save();
+			configuration.save();
 			request->send(201);
 
 			// Only call submitFunc when it has been set to something useful
