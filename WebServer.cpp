@@ -35,23 +35,77 @@ void WebServer::begin(Configuration &configuration, std::function<void()> submit
 			response->addHeader("Content-Encoding", "gzip");
 			request->send(response);
 	});
-
-	server.on("/basecamp.css" , HTTP_GET, [](AsyncWebServerRequest * request)
+	server.on("/index.htm" , HTTP_GET, [](AsyncWebServerRequest * request)
 	{
-			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/css", basecamp_css_gz, basecamp_css_gz_len);
+			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", index_htm_gz, index_htm_gz_len);
+			response->addHeader("Content-Encoding", "gzip");
+			request->send(response);
+	});
+	server.on("/configuration.htm" , HTTP_GET, [](AsyncWebServerRequest * request)
+	{
+			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", configuration_htm_gz, configuration_htm_gz_len);
+			response->addHeader("Content-Encoding", "gzip");
+			request->send(response);
+	});
+	server.on("/feeding_times.htm" , HTTP_GET, [](AsyncWebServerRequest * request)
+	{
+			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", feeding_times_htm_gz, feeding_times_htm_gz_len);
+			response->addHeader("Content-Encoding", "gzip");
+			request->send(response);
+	});
+	server.on("/profiles_add.htm" , HTTP_GET, [](AsyncWebServerRequest * request)
+	{
+			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", profiles_add_htm_gz, profiles_add_htm_gz_len);
+			response->addHeader("Content-Encoding", "gzip");
+			request->send(response);
+	});
+	server.on("/profiles_cat_amount.htm" , HTTP_GET, [](AsyncWebServerRequest * request)
+	{
+			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", profiles_cat_amount_htm_gz, profiles_cat_amount_htm_gz_len);
+			response->addHeader("Content-Encoding", "gzip");
+			request->send(response);
+	});
+	server.on("/profiles_cat_rfid.htm" , HTTP_GET, [](AsyncWebServerRequest * request)
+	{
+			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", profiles_cat_rfid_htm_gz, profiles_cat_rfid_htm_gz_len);
+			response->addHeader("Content-Encoding", "gzip");
+			request->send(response);
+	});
+	server.on("/profiles.htm" , HTTP_GET, [](AsyncWebServerRequest * request)
+	{
+			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", profiles_htm_gz, profiles_htm_gz_len);
+			response->addHeader("Content-Encoding", "gzip");
+			request->send(response);
+	});
+	server.on("/statistics.htm" , HTTP_GET, [](AsyncWebServerRequest * request)
+	{
+			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", statistics_htm_gz, statistics_htm_gz_len);
 			response->addHeader("Content-Encoding", "gzip");
 			request->send(response);
 	});
 
-	server.on("/basecamp.js" , HTTP_GET, [](AsyncWebServerRequest * request)
+	server.on("/main.css" , HTTP_GET, [](AsyncWebServerRequest * request)
 	{
-			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/js", basecamp_js_gz, basecamp_js_gz_len);
+			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/css", main_css_gz, main_css_gz_len);
 			response->addHeader("Content-Encoding", "gzip");
 			request->send(response);
 	});
-	server.on("/logo.svg" , HTTP_GET, [](AsyncWebServerRequest * request)
+
+	server.on("/main.js" , HTTP_GET, [](AsyncWebServerRequest * request)
 	{
-			AsyncWebServerResponse *response = request->beginResponse_P(200, "image/svg+xml", logo_svg_gz, logo_svg_gz_len);
+			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/js", main_js_gz, main_js_gz_len);
+			response->addHeader("Content-Encoding", "gzip");
+			request->send(response);
+	});
+	server.on("/cnosh.js" , HTTP_GET, [](AsyncWebServerRequest * request)
+	{
+			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/js", cnosh_js_gz, cnosh_js_gz_len);
+			response->addHeader("Content-Encoding", "gzip");
+			request->send(response);
+	});
+	server.on("/logo.png" , HTTP_GET, [](AsyncWebServerRequest * request)
+	{
+			AsyncWebServerResponse *response = request->beginResponse_P(200, "image/png", logo_png_gz, logo_png_gz_len);
 			response->addHeader("Content-Encoding", "gzip");
 			request->send(response);
 	});
@@ -113,6 +167,30 @@ void WebServer::begin(Configuration &configuration, std::function<void()> submit
 				if (webParameter->isPost() && webParameter->value().length() != 0)
 				{
 						configuration.set(webParameter->name().c_str(), webParameter->value().c_str());
+				}
+			}
+
+			configuration.save();
+			request->send(201);
+
+			// Only call submitFunc when it has been set to something useful
+			if( submitFunc ) submitFunc();
+	});
+	server.on("/submitfeedingtime", HTTP_POST, [&configuration, submitFunc, this](AsyncWebServerRequest *request)
+	{
+			if (request->params() == 0) {
+				DEBUG_PRINTLN("Refusing to take over an empty configuration submission.");
+				request->send(500);
+				return;
+			}
+			debugPrintRequest(request);
+
+			for (int i = 0; i < request->params(); i++)
+			{
+				AsyncWebParameter *webParameter = request->getParam(i);
+				if (webParameter->isPost() && webParameter->value().length() != 0)
+				{
+					configuration.set(webParameter->name().c_str(), webParameter->value().c_str());
 				}
 			}
 

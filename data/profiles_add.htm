@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>cNosh</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="breadcrumb.css" />
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <img src="logo.png" alt="" class="logo">
+            <div id="level">Füllstand: 90%</div>
+            <div class="menu">
+                <a href="index.htm">Netzwerk</a>
+                <a href="profiles.htm" class="active">Profile</a>
+                <a href="feeding_times.htm">Fütterzeiten</a>
+                <a href="statistics.htm">Statistik</a>
+                <a href="configuration.htm">Konfiguration</a>
+            </div>
+        </nav>
+
+        <main>
+            <h1>Profile</h1>
+
+            <ul class="breadcrumb">
+                <li><a href="profiles.htm">Profile</a></li>
+                <li>Profil hinzufügen</li>
+            </ul>
+
+            <div class="form">
+                <form action="profiles.htm">
+                    <div class="row">
+                        <div class="col-15">
+                            <label for="cat_name">Name</label>
+                        </div>
+                        <div class="col-85">
+                            <input type="text" id="cat_name" name="cat_name" placeholder="Name der Katze">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <input type="submit" value="Erstellen">
+                    </div>
+                </form>
+            </div>
+
+        </main>
+    </div>
+</body>
+
+</html>

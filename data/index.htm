@@ -1,15 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="shortcut icon" type="image/svg+xml" href="/logo.svg" sizes="any">
-		<link rel="stylesheet" href="basecamp.css">
-		<script src="basecamp.js" ></script>
-		<title id="title">ESP32</title>
-	</head>
-	<body id="body">
-		<div id="wrapper">
-		</div>
-	</body>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>cNosh</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <img src="logo.png" alt="" class="logo">
+            <div id="level">Füllstand: 90%</div>
+            <div class="menu">
+                <a href="index.htm" class="active">Netzwerk</a>
+                <a href="profiles.htm">Profile</a>
+                <a href="feeding_times.htm">Fütterzeiten</a>
+                <a href="statistics.htm">Statistik</a>
+                <a href="configuration.htm">Konfiguration</a>
+            </div>
+        </nav>
+        <main>
+            <h1>Netzwerk</h1>
+            <div class="info">
+                <span>Info: </span>Hier kannst du cNosh mit deinem Heimnetz verbinden. Gibt dazu den Namen (SSID)
+                deines Netzwerkes und das Passwort ein.<br>
+                cNosh wird daraufhin erneut starten und sich verbinden.
+            </div>
+            <div class="form" >
+                <form action="#" onsubmit="collectConfiguration()">
+                    <div class="row">
+                        <div class="col-15">
+                            <label for="ssid">Gerätename</label>
+                        </div>
+                        <div class="col-85">
+                            <input type="text" id="DeviceName" data-config="DeviceName" name="DeviceName" placeholder="Name des Gerätes im Netzwerk">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-15">
+                            <label for="ssid">SSID</label>
+                        </div>
+                        <div class="col-85">
+                            <input type="text" id="ssid" data-config="WifiEssid" name="ssid" placeholder="Name des WLAN Netzwerkes">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-15">
+                            <label for="password">Passwort</label>
+                        </div>
+                        <div class="col-85">
+                            <input type="password" id="password" data-config="WifiPassword" name="password" placeholder="Passwort">
+                        </div>
+                    </div>
+                    <input id="WifiConfigured" data-config="WifiConfigured" name="WifiConfigured" value="True" type="hidden"> 
+                    <div class="row">
+                        <input type="submit" value="Speichern" >
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
 </html>
