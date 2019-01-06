@@ -40,10 +40,33 @@ function collectConfiguration() {
 	console.log("Sending configuration");
 	request.send(configurationData);
 	function transferFailed(){
-		alert("Configuration could not be saved");
+		alert("FEHLER! Die WLAN-Konfiguration konnte nicht abgeschlossen werden.");
 	}
 	function transferComplete(){
-		alert("Configuration saved successfully. Rebooting.");
+		alert("WLAN-Konfiguration erfolgreich. CNosh startet neu.");
 	};
 
+}
+
+function collect_feedingtimes() {
+	console.log('Button pressed');
+	var configurationData = new FormData();
+	configurationElements = document.body.querySelectorAll('*[feeding-config]');
+	for (var i = configurationElements.length - 1; i >= 0; i--) {
+	  var configurationKey = configurationElements[i].getAttribute("feeding-config");
+	  var configurationValue = configurationElements[i].value;
+	  configurationData.append(configurationKey, configurationValue);
+	}
+	var request = new XMLHttpRequest();
+	request.addEventListener("load", transferComplete);
+	request.addEventListener("error", transferFailed);
+	request.open("POST", "/submitfeedingtime");
+	console.log("Sending feedingtimes");
+	request.send(configurationData);
+	function transferFailed() {
+	  alert("Es ist ein Fehler aufgetreten, bitte versuchen Sie es erneut.");
+	}
+	function transferComplete() {
+	  alert("Die Futterzeiten wurden erfolgreich gespeichert.");
+	};
 }
