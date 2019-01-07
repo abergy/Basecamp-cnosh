@@ -97,12 +97,6 @@ void WebServer::begin(Configuration &configuration, std::function<void()> submit
 			response->addHeader("Content-Encoding", "gzip");
 			request->send(response);
 	});
-	server.on("/cnosh.js" , HTTP_GET, [](AsyncWebServerRequest * request)
-	{
-			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/js", cnosh_js_gz, cnosh_js_gz_len);
-			response->addHeader("Content-Encoding", "gzip");
-			request->send(response);
-	});
 	server.on("/logo.png" , HTTP_GET, [](AsyncWebServerRequest * request)
 	{
 			AsyncWebServerResponse *response = request->beginResponse_P(200, "image/png", logo_png_gz, logo_png_gz_len);
