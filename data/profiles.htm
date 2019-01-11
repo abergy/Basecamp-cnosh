@@ -8,6 +8,128 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
   <script src="main.js"></script>
+
+  <script>
+    var jsonData = JSON.parse('{"cats":{"c1_name":"Balu","c1_uid":21654,"c1_lastfeedingtime":"2019-01-18T16:00:13Z","c1_extra_amount_size":"M","c1_extra_amount_number":3,"c1_extra_amount_count":0,"c1_extra_delay":60,"c1_created":1,"c2_name":"Lisa","c2_uid":48428,"c2_lastfeedingtime":"2019-01-18T16:00:13Z","c2_extra_amount_size":"M","c2_extra_amount_number":3,"c2_extra_amount_count":0,"c2_extra_delay":60,"c2_created":1},"feedingtimes":{"time_1_h":1,"time_1_m":2,"time_2_h":3,"time_2_m":4,"time_3_h":5,"time_3_m":6,"time_4_h":7,"time_4_m":8,"time_amount_size":1},"statistics":{"configured":true,"startdate":"2019-01-18T16:00:13Z","last_savedate":"2019-01-18T16:00:13Z","total_amount_number":[150,80]}}');
+
+    function load() {
+      console.log('CNosh JSON loaded');
+      var request = new XMLHttpRequest();
+      function transferComplete() {
+        var data = JSON.parse(this.responseText);
+        build_profiles(data);
+      };
+      function transferFailed(evt) {
+        console.log(
+          'Looks like there was a problem. Status Code: ' + request.status);
+        addElementToDom(
+          'h1', 'error', 'Could not load configuration: ' + request.status,
+          { 'style': 'color:red' });
+        return;
+      };
+      request.addEventListener('load', transferComplete);
+      request.addEventListener('error', transferFailed);
+      request.open('GET', jsonData);
+      request.send();
+    };
+    
+    function build_profiles(data) {
+      console.log("build_profiles entered");
+      let limiter = document.getElementById("limiter");
+
+      let container_table100 = document.createElement('div');
+      container_table100.setAttribute('class', 'container-table100');
+
+      let wrap_table100 = document.createElement('div');
+      wrap_table100.setAttribute('class', 'wrap-table100');
+
+      let table100 = document.createElement('div');
+      table100.setAttribute('class', 'table100');
+
+      let table = document.createElement('table');
+      let thead = document.createElement('thead');
+
+      let tr = document.createElement('tr');
+      tr.setAttribute('class', 'table100-head');
+
+      let th1 = document.createElement('th');
+      th1.innerHTML = 'Name';
+      th1.setAttribute('class', 'column1');
+
+      let th2 = document.createElement('th');
+      th2.innerHTML = 'RFID';
+      th2.setAttribute('class', 'column2');
+
+      let th3 = document.createElement('th');
+      th3.innerHTML = "Futtermenge";
+      th3.setAttribute('class', 'column3');
+
+      let th4 = document.createElement('th');
+      th4.setAttribute('class', 'column4');
+
+      let tbody = document.createElement('tbody');
+
+      tr.appendChild(th1);
+      tr.appendChild(th2);
+      tr.appendChild(th3);
+      tr.appendChild(th4);
+      thead.appendChild(tr);
+
+
+      for (let i = 0; i <= 3; i++) {
+        if (data.cats['c' + (i + 1) + '_created'] === 1) {
+          let tr = document.createElement('tr');
+
+        let td_column1 = document.createElement('td');
+        td_column1.setAttribute('class', 'column1');
+        td_column1.innerHTML = data.cats['c' + (i + 1) + '_name'];
+
+        let td_column2 = document.createElement('td');
+        td_column2.setAttribute('class', 'column2');
+
+        let a_column2 = document.createElement('a');
+        a_column2.setAttribute('href', 'profiles_cat_rfid.htm?' + 'c' + (i + 1) + '_uid' + '=' + data.cats['c' + (i + 1) + '_uid']);
+        a_column2.innerHTML = 'konfigurieren';
+
+        let td_column3 = document.createElement('td');
+        td_column3.setAttribute('class', 'column4');
+
+        let a_column3 = document.createElement('a');
+        a_column3.setAttribute('href', 'profiles_cat_amount.htm?' + 'c' + (i + 1) + '_uid' + '=' + data.cats['c' + (i + 1) + '_uid']);
+        a_column3.innerHTML = 'konfigurieren';
+
+        let td_column4 = document.createElement('td');
+        td_column4.setAttribute('class', 'column4');
+
+        let a_column4 = document.createElement('a');
+        a_column4.setAttribute('href', '#popup1');
+        a_column4.innerHTML = 'löschen';
+
+        td_column2.appendChild(a_column2);
+        td_column3.appendChild(a_column3);
+        td_column4.appendChild(a_column4);
+
+        tr.appendChild(td_column1);
+        tr.appendChild(td_column2);
+        tr.appendChild(td_column3);
+        tr.appendChild(td_column4);
+
+        tbody.appendChild(tr);
+        }
+      }
+
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      table100.appendChild(table);
+      wrap_table100.appendChild(table100);
+      container_table100.appendChild(wrap_table100);
+      limiter.appendChild(container_table100);
+    }
+
+    window.onload = function () {
+      build_profiles(jsonData);
+    }
+  </script>
 </head>
 
 <body>
@@ -30,38 +152,7 @@
         <span>Info: </span>Hier kannst du Profile für deine Katzen anlegen oder bestehende bearbeiten.
       </div>
 
-      <div class="limiter">
-        <div class="container-table100">
-          <div class="wrap-table100">
-            <div class="table100">
-              <table>
-                <thead>
-                  <tr class="table100-head">
-                    <th class="column1">Name</th>
-                    <th class="column2">RFID</th>
-                    <th class="column3">Futtermenge</th>
-                    <th class="column4"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="column1">Balu</td>
-                    <td class="column2"><a href="profiles_cat_rfid.htm">konfigurieren</a></td>
-                    <td class="column3"><a href="profiles_cat_amount.htm">konfigurieren</a></td>
-                    <td class="column4"><a href="#popup1">löschen</a></td>
-                  </tr>
-                  <tr>
-                    <td class="column1">Lisa</td>
-                    <td class="column2"><a href="profiles_cat_rfid.htm">konfigurieren</a></td>
-                    <td class="column3"><a href="profiles_cat_amount.htm">konfigurieren</a></td>
-                    <td class="column4"><a href="#popup1">löschen</a></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="limiter" id="limiter"></div>
 
       <a href="profiles_add.htm" class="button">Profil anlegen</a>
 
