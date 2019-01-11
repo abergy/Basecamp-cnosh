@@ -18,6 +18,17 @@ function load() {
 
 };
 
+function getQueryVariable(variable)
+        {
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            for (var i=0;i<vars.length;i++) {
+                    var pair = vars[i].split("=");
+                    if(pair[0] == variable){return pair[1];}
+            }
+            return(false);
+        }
+
 function collectConfiguration() {
 	document.getElementById("WifiConfigured").value="True";
 	var configurationData = new FormData();
@@ -69,4 +80,36 @@ function collect_feedingtimes() {
 	function transferComplete() {
 	  alert("Die Futterzeiten wurden erfolgreich gespeichert.");
 	};
+}
+
+function collect_rfid() {
+	var configurationData = new FormData();
+
+	if (getQueryVariable("c1_uid")) {
+		configurationData.append("c1_uid", getQueryVariable("c1_uid"));
+	}
+	if (getQueryVariable("c2_uid")) {
+		configurationData.append("c2_uid", getQueryVariable("c2_uid"));
+	}
+	if (getQueryVariable("c3_uid")) {
+		configurationData.append("c3_uid", getQueryVariable("c3_uid"));
+	}
+	if (getQueryVariable("c4_uid")) {
+		configurationData.append("c4_uid", getQueryVariable("c4_uid"));
+	}
+
+	if (getQueryVariable("c1_uid") || getQueryVariable("c2_uid") || getQueryVariable("c3_uid") || getQueryVariable("c4_uid")) {
+		var request = new XMLHttpRequest();
+		request.addEventListener("load", transferComplete);
+		request.addEventListener("error", transferFailed);
+		request.open("POST", "/set_rfid");
+		console.log("Sending rfid");
+		request.send(configurationData);
+		function transferFailed() {
+		alert("Es ist ein Fehler aufgetreten, bitte versuchen Sie es erneut.");
+		}
+		function transferComplete() {
+		alert("Die Katze wurde erfolgreich registriert.");
+		};
+	}
 }
