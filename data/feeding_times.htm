@@ -76,6 +76,7 @@
 
         let button_dec_h = document.createElement('div');
         button_dec_h.setAttribute('class', 'value-button');
+        button_dec_h.innerHTML = '-';
         button_dec_h.setAttribute('id', 'decrease');
         button_dec_h.setAttribute(
           'onclick', 'decreaseValue(\'feeding_time_' + (i + 1) + '_h\')');
@@ -90,17 +91,20 @@
 
         let button_inc_h = document.createElement('div');
         button_inc_h.setAttribute('class', 'value-button');
+        button_inc_h.innerHTML = '+';
         button_inc_h.setAttribute('id', 'increase');
         button_inc_h.setAttribute(
           'onclick', 'increaseValue(\'feeding_time_' + (i + 1) + '_h\')');
         button_inc_h.setAttribute('value', 'Increase Value');
         // minute
         let minute_label = document.createElement('label');
+        minute_label.setAttribute('class', 'minutes');
         minute_label.setAttribute('for', 'feeding_time_' + (i + 1));
         minute_label.innerHTML = 'Minute';
 
         let button_dec_m = document.createElement('div');
         button_dec_m.setAttribute('class', 'value-button');
+        button_dec_m.innerHTML = '-';
         button_dec_m.setAttribute('id', 'decrease');
         button_dec_m.setAttribute(
           'onclick', 'decreaseValue(\'feeding_time_' + (i + 1) + '_m\')');
@@ -115,6 +119,7 @@
 
         let button_inc_m = document.createElement('div');
         button_inc_m.setAttribute('class', 'value-button');
+        button_inc_m.innerHTML = '+';
         button_inc_m.setAttribute('id', 'increase');
         button_inc_m.setAttribute(
           'onclick', 'increaseValue(\'feeding_time_' + (i + 1) + '_m\')');
@@ -152,6 +157,7 @@
 
       let button_dec_amount = document.createElement('div');
       button_dec_amount.setAttribute('class', 'value-button');
+      button_dec_amount.innerHTML = '-';
       button_dec_amount.setAttribute('id', 'decrease');
       button_dec_amount.setAttribute('onclick', 'decreaseValue(\'amount\')');
       button_dec_amount.setAttribute('value', 'Decrease Value');
@@ -165,6 +171,7 @@
 
       let button_inc_amount = document.createElement('div');
       button_inc_amount.setAttribute('class', 'value-button');
+      button_inc_amount.innerHTML = '+';
       button_inc_amount.setAttribute('id', 'increase');
       button_inc_amount.setAttribute('onclick', 'increaseValue(\'amount\')');
       button_inc_amount.setAttribute('value', 'Increase Value');
@@ -190,6 +197,8 @@
 
       feedingtimes.appendChild(form);
     }
+
+
     window.onload = function () {
       load();
     }
