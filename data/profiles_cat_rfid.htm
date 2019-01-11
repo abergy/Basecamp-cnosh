@@ -8,6 +8,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="main.js"></script>
+
+    <script>
+        function build_cat_rfid() {
+            let input = document.getElementById('rfid');
+
+            if (getQueryVariable("c1_uid")) {
+                input.setAttribute('value', getQueryVariable("c1_uid"));
+            }
+            if (getQueryVariable("c2_uid")) {
+                input.setAttribute('value', getQueryVariable("c2_uid"));
+            }
+            if (getQueryVariable("c3_uid")) {
+                input.setAttribute('value', getQueryVariable("c3_uid"));
+            }
+            if (getQueryVariable("c4_uid")) {
+                input.setAttribute('value', getQueryVariable("c4_uid"));
+            }
+        }
+
+        window.onload = function () {
+            build_cat_rfid();
+        }
+    </script>
 </head>
 
 <body>
@@ -39,22 +62,24 @@
             </ul>
 
             <div class="form">
-                <form action="profiles.htm">
-                    <div class="row">
-                        <a href="" class="button left">RFID suchen</a>
-                    </div>
-                    <div class="row">
-                        <div class="col-15">
-                            <label for="ssid">RFID Kennung</label>
+                    <form action="profiles.htm" onsubmit='collect_rfid()'>
+                        <div class="row">
+                            <a href="" class="button left">RFID suchen</a>
                         </div>
-                        <div class="col-85">
-                            <input type="text" id="ssid" name="ssid" placeholder="">
+                        <div class="row">
+                            <div class="col-15">
+                                <label for="rfid">RFID Kennung</label>
+                            </div>
+                            <div class="col-85">
+                                <input type="text" id="rfid" name="rfid" placeholder="">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <input type="submit" value="Speichern">
-                    </div>
-                </form>
+                        <div class="row">
+                            <input type="submit" value="Speichern">
+                        </div>
+                    </form>
+                </div>
+
             </div>
         </main>
     </div>
