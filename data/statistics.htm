@@ -8,6 +8,95 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
   <script src="main.js"></script>
+
+  <script>
+      var jsonData = JSON.parse('{"cats":{"c1_name":"Balu","c1_uid":21654,"c1_lastfeedingtime":"2019-01-18T15:00:13Z","c1_extra_amount_size":"M","c1_extra_amount_number":3,"c1_extra_amount_count":0,"c1_extra_delay":60,"c1_created":1,"c2_name":"Lisa","c2_uid":48428,"c2_lastfeedingtime":"2019-01-18T16:00:13Z","c2_extra_amount_size":"M","c2_extra_amount_number":3,"c2_extra_amount_count":0,"c2_extra_delay":60,"c2_created":1},"feedingtimes":{"time_1_h":1,"time_1_m":2,"time_2_h":3,"time_2_m":4,"time_3_h":5,"time_3_m":6,"time_4_h":7,"time_4_m":8,"time_amount_size":1},"statistics":{"configured":true,"startdate":"2019-01-18T16:00:13Z","last_savedate":"2019-01-18T16:00:13Z","total_amount_number":[150,80]}}');
+
+      function load() {
+      console.log('CNosh JSON loaded');
+      var request = new XMLHttpRequest();
+      function transferComplete() {
+        var data = JSON.parse(this.responseText);
+        build_statistic(data);
+      };
+      function transferFailed(evt) {
+        console.log(
+          'Looks like there was a problem. Status Code: ' + request.status);
+        addElementToDom(
+          'h1', 'error', 'Could not load configuration: ' + request.status,
+          { 'style': 'color:red' });
+        return;
+      };
+      request.addEventListener('load', transferComplete);
+      request.addEventListener('error', transferFailed);
+      request.open('GET', jsonData);
+      request.send();
+    };
+
+    function build_statistic(data) {
+      console.log("build_statistic entered");
+      let limiter = document.getElementById("limiter");
+
+      let container_table100 = document.createElement('div');
+      container_table100.setAttribute('class', 'container-table100');
+
+      let wrap_table100 = document.createElement('div');
+      wrap_table100.setAttribute('class', 'wrap-table100');
+
+      let table100 = document.createElement('div');
+      table100.setAttribute('class', 'table100');
+
+      let table = document.createElement('table');
+      let thead = document.createElement('thead');
+
+      let tr = document.createElement('tr');
+      tr.setAttribute('class', 'table100-head');
+
+      let th1 = document.createElement('th');
+      th1.innerHTML = 'Name';
+      th1.setAttribute('class', 'column1');
+
+      let th2 = document.createElement('th');
+      th2.innerHTML = 'letze Ausgabe Extrafutter';
+      th2.setAttribute('class', 'column2');
+
+      tr.appendChild(th1);
+      tr.appendChild(th2);
+      let tbody = document.createElement('tbody');
+      thead.appendChild(tr);
+
+      for (let i = 0; i <= 3; i++) {
+        if (data.cats['c' + (i + 1) + '_created'] === 1) {
+          let tr = document.createElement('tr');
+
+          let td_column1 = document.createElement('td');
+          td_column1.setAttribute('class', 'column1');
+          td_column1.innerHTML = data.cats['c' + (i + 1) + '_name'];
+
+          let td_column2 = document.createElement('td');
+          td_column2.setAttribute('class', 'column1');
+          td_column2.innerHTML = data.cats['c' + (i + 1) + '_lastfeedingtime'];
+
+          tr.appendChild(td_column1);
+          tr.appendChild(td_column2);
+
+          tbody.appendChild(tr); 
+        }
+      }
+
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      table100.appendChild(table);
+      wrap_table100.appendChild(table100);
+      container_table100.appendChild(wrap_table100);
+      limiter.appendChild(container_table100);
+    }
+
+    window.onload = function () {
+      build_statistic(jsonData);
+    }
+
+  </script>
 </head>
 
 <body>
@@ -31,32 +120,7 @@
         Ausserdem kannst du sehen, wie viel Futter in einer gewissen Zeit gefüttert wurde.
       </div>
 
-      <div class="limiter">
-        <div class="container-table100">
-          <div class="wrap-table100">
-            <div class="table100">
-              <table>
-                <thead>
-                  <tr class="table100-head">
-                    <th class="column1">Name</th>
-                    <th class="column2">letze Ausgabe Extrafutter</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="column1">Balu</td>
-                    <td class="column2">Uhrzeit</td>
-                  </tr>
-                  <tr>
-                    <td class="column1">Lisa</td>
-                    <td class="column2">Uhrzeit</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="limiter" id="limiter"></div>
 
       <div id="statistic"><span>Gesamtportionsmenge seit Datum: </span>Zahl (enspricht Zahl Kilogramm)</div>
 
