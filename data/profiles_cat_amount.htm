@@ -10,6 +10,8 @@
     <script src="main.js"></script>
 
     <script>
+        var jsonData = JSON.parse('{"cats":{"c1_name":"Balu","c1_uid":21654,"c1_lastfeedingtime":"2019-01-18T16:00:13Z","c1_extra_amount_size":"2","c1_extra_amount_number":3,"c1_extra_amount_count":0,"c1_extra_delay":60,"c1_created":1,"c2_name":"Lisa","c2_uid":48428,"c2_lastfeedingtime":"2019-01-18T16:00:13Z","c2_extra_amount_size":"4","c2_extra_amount_number":2,"c2_extra_amount_count":0,"c2_extra_delay":60,"c2_created":1},"feedingtimes":{"time_1_h":1,"time_1_m":2,"time_2_h":3,"time_2_m":4,"time_3_h":5,"time_3_m":6,"time_4_h":7,"time_4_m":8,"time_amount_size":1},"statistics":{"configured":true,"startdate":"2019-01-18T16:00:13Z","last_savedate":"2019-01-18T16:00:13Z","total_amount_number":[150,80]}}');
+
         function increaseValue(a) {
         var value = parseInt(document.getElementById(a).value, 10);
         value = isNaN(value) ? 0 : value;
@@ -23,6 +25,37 @@
         value < 1 ? value = 1 : '';
         value--;
         document.getElementById(a).value = value;
+        }
+
+        function build_cat_amount(data) {
+            let number_extra_food = document.getElementById('number_extra_food');
+            let quantity_per_portion = document.getElementById('quantity_per_portion');
+            let lock_after_feeding = document.getElementById('lock_after_feeding');
+
+            if (getQueryVariable("c1_uid")) {
+                number_extra_food.setAttribute('value', data.cats['c1_extra_amount_number']);
+                quantity_per_portion.setAttribute('value', data.cats['c1_extra_amount_size']);
+                lock_after_feeding.setAttribute('value', data.cats['c1_extra_delay']);
+            }
+            if (getQueryVariable("c2_uid")) {
+                number_extra_food.setAttribute('value', data.cats['c2_extra_amount_number']);
+                quantity_per_portion.setAttribute('value', data.cats['c2_extra_amount_size']);
+                lock_after_feeding.setAttribute('value', data.cats['c2_extra_delay']);
+            }
+            if (getQueryVariable("c3_uid")) {
+                number_extra_food.setAttribute('value', data.cats['c3_extra_amount_number']);
+                quantity_per_portion.setAttribute('value', data.cats['c3_extra_amount_size']);
+                lock_after_feeding.setAttribute('value', data.cats['c3_extra_delay']);
+            }
+            if (getQueryVariable("c4_uid")) {
+                number_extra_food.setAttribute('value', data.cats['c4_extra_amount_number']);
+                quantity_per_portion.setAttribute('value', data.cats['c4_extra_amount_size']);
+                lock_after_feeding.setAttribute('value', data.cats['c4_extra_delay']);
+            }
+        }
+
+        window.onload = function () {
+            build_cat_amount(jsonData);
         }
     </script>
 </head>
@@ -55,14 +88,14 @@
             </ul>
 
             <div class="form">
-                <form action="profiles.htm">
+                <form action="profiles.htm" onsubmit='collect_cat_amount()'>
                     <div class="row">
                         <div class="col-15">
                             <label for="cat_name">Anzahl Extrafutter</label>
                         </div>
                         <div class="col-85">
                             <div class="value-button" id="decrease" onclick="decreaseValue('number_extra_food')" value="Decrease Value">-</div>
-                            <input type="number" id="number_extra_food" class="number" value="3" />
+                            <input type="number" for="amount-config" id="number_extra_food" class="number" value="" />
                             <div class="value-button" id="increase" onclick="increaseValue('number_extra_food')" value="Increase Value">+</div>
                         </div>
                     </div>
@@ -74,7 +107,7 @@
                         <div class="col-85">
                             <div class="value-button" id="decrease" onclick="decreaseValue('quantity_per_portion')"
                                 value="Decrease Value">-</div>
-                            <input type="number" id="quantity_per_portion" class="number" value="100" />
+                            <input type="number" for="amount-config" id="quantity_per_portion" class="number" value="" />
                             <div class="value-button" id="increase" onclick="increaseValue('quantity_per_portion')"
                                 value="Increase Value">+</div>
                         </div>
@@ -86,7 +119,7 @@
                         </div>
                         <div class="col-85">
                             <div class="value-button" id="decrease" onclick="decreaseValue('lock_after_feeding')" value="Decrease Value">-</div>
-                            <input type="number" id="lock_after_feeding" class="number" value="60" />
+                            <input type="number" for="amount-config" id="lock_after_feeding" class="number" value="" />
                             <div class="value-button" id="increase" onclick="increaseValue('lock_after_feeding')" value="Increase Value">+</div>
                         </div>
                     </div>
