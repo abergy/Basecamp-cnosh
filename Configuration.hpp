@@ -50,9 +50,13 @@ enum class ConfigurationKey {
 	c1_uid,
 	c1_name,
 	c1_lastfeedingtime,
+	// Size of each portion
 	c1_extra_amount_size,
+	// Number of times the cat is allowed to get food
 	c1_extra_amount_number,
+	// Counter to check if the cat has reached the limit
 	c1_extra_amount_count,
+	// Lock after the cat has picked up its food once
 	c1_extra_delay,
 	c1_created,
 	c2_uid,
