@@ -10,21 +10,26 @@
   <script src="main.js"></script>
 
   <script>
-    var jsonData = JSON.parse('{"cats":{"c1_name":"Balu","c1_uid":21654,"c1_lastfeedingtime":"2019-01-18T16:00:13Z","c1_extra_amount_size":"M","c1_extra_amount_number":3,"c1_extra_amount_count":0,"c1_extra_delay":60,"c1_created":1,"c2_name":"Lisa","c2_uid":48428,"c2_lastfeedingtime":"2019-01-18T16:00:13Z","c2_extra_amount_size":"M","c2_extra_amount_number":3,"c2_extra_amount_count":0,"c2_extra_delay":60,"c2_created":1},"feedingtimes":{"time_1_h":1,"time_1_m":2,"time_2_h":3,"time_2_m":4,"time_3_h":5,"time_3_m":6,"time_4_h":7,"time_4_m":8,"time_amount_size":1},"statistics":{"configured":true,"startdate":"2019-01-18T16:00:13Z","last_savedate":"2019-01-18T16:00:13Z","total_amount_number":[150,80]}}');
+    var jsonData = JSON.parse(
+      '{"cats":{"c1_name":"Balu","c1_uid":21654,"c1_lastfeedingtime":"2019-01-18T16:00:13Z","c1_extra_amount_size":"M","c1_extra_amount_number":3,"c1_extra_amount_count":0,"c1_extra_delay":60,"c1_created":1,"c2_name":"Lisa","c2_uid":48428,"c2_lastfeedingtime":"2019-01-18T16:00:13Z","c2_extra_amount_size":"M","c2_extra_amount_number":3,"c2_extra_amount_count":0,"c2_extra_delay":60,"c2_created":1},"feedingtimes":{"time_1_h":1,"time_1_m":2,"time_2_h":3,"time_2_m":4,"time_3_h":5,"time_3_m":6,"time_4_h":7,"time_4_m":8,"time_amount_size":1},"statistics":{"configured":true,"startdate":"2019-01-18T16:00:13Z","last_savedate":"2019-01-18T16:00:13Z","total_amount_number":[150,80]}}'
+    );
 
     function load() {
       console.log('CNosh JSON loaded');
       var request = new XMLHttpRequest();
+
       function transferComplete() {
         var data = JSON.parse(this.responseText);
         build_profiles(data);
       };
+
       function transferFailed(evt) {
         console.log(
           'Looks like there was a problem. Status Code: ' + request.status);
         addElementToDom(
-          'h1', 'error', 'Could not load configuration: ' + request.status,
-          { 'style': 'color:red' });
+          'h1', 'error', 'Could not load configuration: ' + request.status, {
+            'style': 'color:red'
+          });
         return;
       };
       request.addEventListener('load', transferComplete);
@@ -32,7 +37,7 @@
       request.open('GET', jsonData);
       request.send();
     };
-    
+
     function build_profiles(data) {
       console.log("build_profiles entered");
       let limiter = document.getElementById("limiter");
@@ -80,41 +85,45 @@
         if (data.cats['c' + (i + 1) + '_created'] === 1) {
           let tr = document.createElement('tr');
 
-        let td_column1 = document.createElement('td');
-        td_column1.setAttribute('class', 'column1');
-        td_column1.innerHTML = data.cats['c' + (i + 1) + '_name'];
+          let td_column1 = document.createElement('td');
+          td_column1.setAttribute('class', 'column1');
+          td_column1.innerHTML = data.cats['c' + (i + 1) + '_name'];
 
-        let td_column2 = document.createElement('td');
-        td_column2.setAttribute('class', 'column2');
+          let td_column2 = document.createElement('td');
+          td_column2.setAttribute('class', 'column2');
 
-        let a_column2 = document.createElement('a');
-        a_column2.setAttribute('href', 'profiles_cat_rfid.htm?' + 'c' + (i + 1) + '_uid' + '=' + data.cats['c' + (i + 1) + '_uid']);
-        a_column2.innerHTML = 'konfigurieren';
+          let a_column2 = document.createElement('a');
+          a_column2.setAttribute('href', 'profiles_cat_rfid.htm?' + 'c' + (i + 1) + '_uid' + '=' + data.cats['c' + (i +
+            1) + '_uid']);
+          a_column2.innerHTML = 'konfigurieren';
 
-        let td_column3 = document.createElement('td');
-        td_column3.setAttribute('class', 'column4');
+          let td_column3 = document.createElement('td');
+          td_column3.setAttribute('class', 'column4');
 
-        let a_column3 = document.createElement('a');
-        a_column3.setAttribute('href', 'profiles_cat_amount.htm?' + 'c' + (i + 1) + '_uid' + '=' + data.cats['c' + (i + 1) + '_uid']);
-        a_column3.innerHTML = 'konfigurieren';
+          let a_column3 = document.createElement('a');
+          a_column3.setAttribute('href', 'profiles_cat_amount.htm?' + 'c' + (i + 1) + '_uid' + '=' + data.cats['c' + (i +
+            1) + '_uid']);
+          a_column3.innerHTML = 'konfigurieren';
 
-        let td_column4 = document.createElement('td');
-        td_column4.setAttribute('class', 'column4');
+          let td_column4 = document.createElement('td');
+          td_column4.setAttribute('class', 'column4');
 
-        let a_column4 = document.createElement('a');
-        a_column4.setAttribute('href', '#popup1');
-        a_column4.innerHTML = 'löschen';
+          let a_column4 = document.createElement('a');
+          a_column4.setAttribute('href', '#popup1');
+          a_column4.setAttribute('onclick', 'popup(' + data.cats['c' + (i + 1) + '_uid'] + ')');
+          
+          a_column4.innerHTML = 'löschen';
 
-        td_column2.appendChild(a_column2);
-        td_column3.appendChild(a_column3);
-        td_column4.appendChild(a_column4);
+          td_column2.appendChild(a_column2);
+          td_column3.appendChild(a_column3);
+          td_column4.appendChild(a_column4);
 
-        tr.appendChild(td_column1);
-        tr.appendChild(td_column2);
-        tr.appendChild(td_column3);
-        tr.appendChild(td_column4);
+          tr.appendChild(td_column1);
+          tr.appendChild(td_column2);
+          tr.appendChild(td_column3);
+          tr.appendChild(td_column4);
 
-        tbody.appendChild(tr);
+          tbody.appendChild(tr);
         }
       }
 
@@ -128,6 +137,11 @@
 
     window.onload = function () {
       build_profiles(jsonData);
+    }
+
+    function popup(uid) {
+      var button = document.getElementById('delete_button');
+      button.setAttribute('onclick', 'delete_cat(' + uid + ')')
     }
   </script>
 </head>
@@ -157,16 +171,16 @@
       <a href="profiles_add.htm" class="button">Profil anlegen</a>
 
       <div id="popup1" class="overlay">
-          <div class="popup">
-            <h2>Name der Katze löschen</h2>
-            <a class="close" href="#">&times;</a>
-            <div class="content">
-              Bist du sicher das Name der Katze gelöscht werden soll?
-              <a class="button right" href="#">Nein</a>
-              <button class="button right" onclick="myFunction()">Ja</button> 
-            </div>
+        <div class="popup">
+          <h2>Name der Katze löschen</h2>
+          <a class="close" href="#">&times;</a>
+          <div class="content">
+            Bist du sicher das Name der Katze gelöscht werden soll?
+            <a class="button right" href="#">Nein</a>
+            <button id="delete_button" class="button right">Ja</button>
           </div>
         </div>
+      </div>
 
     </main>
   </div>
