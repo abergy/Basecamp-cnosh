@@ -200,8 +200,35 @@ void WebServer::begin(Configuration &configuration, std::function<void()> submit
 			// Only call submitFunc when it has been set to something useful
 			if( submitFunc ) submitFunc();
 	});
+	server.on(
+		"/submitfeedingtime", HTTP_POST,
+		[&configuration, submitFunc, this](AsyncWebServerRequest *request) {
+			if (request->params() == 0) {
+				DEBUG_PRINTLN("Refusing to take over an empty "
+								"configuration submission.");
+				request->send(500);
+				return;
+			}
+			debugPrintRequest(request);
 
-	server.onNotFound([this](AsyncWebServerRequest *request)
+			for (int i = 0; i < request->params(); i++) {
+				AsyncWebParameter *webParameter = request->getParam(i);
+				if (webParameter->isPost() &&
+					webParameter->value().length() != 0) {
+					configuration.set(webParameter->name().c_str(),
+										webParameter->value().c_str());
+				}
+			}
+
+			configuration.save();
+			request->send(201);
+
+			// Only call submitFunc when it has been set to something useful
+			if (submitFunc)
+				submitFunc();
+		});
+
+        server.onNotFound([this](AsyncWebServerRequest *request)
 	{
 #ifdef DEBUG
 	  	DEBUG_PRINTLN("WebServer request not found: ");
