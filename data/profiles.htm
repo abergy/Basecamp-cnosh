@@ -80,9 +80,19 @@
       tr.appendChild(th4);
       thead.appendChild(tr);
 
+      var new_profile = document.getElementById('new_profile');
+
+      let profile_count = 0;
 
       for (let i = 0; i <= 3; i++) {
         if (data.cats['c' + (i + 1) + '_created'] === 1) {
+
+          profile_count++;
+
+          if (profile_count >= 5)  {
+            new_profile.style.display = "none";
+          }
+
           let tr = document.createElement('tr');
 
           let td_column1 = document.createElement('td');
@@ -168,7 +178,7 @@
 
       <div class="limiter" id="limiter"></div>
 
-      <a href="profiles_add.htm" class="button">Profil anlegen</a>
+      <a href="profiles_add.htm" class="button" id="new_profile">Profil anlegen</a>
 
       <div id="popup1" class="overlay">
         <div class="popup">
