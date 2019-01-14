@@ -89,8 +89,10 @@
 
           profile_count++;
 
-          if (profile_count >= 5)  {
-            new_profile.style.display = "none";
+          if (profile_count > 2)  {
+            //new_profile.style.display = "none";
+            new_profile.setAttribute('class', 'button new_profile');
+            new_profile.innerHTML = "Maximale Anzahl erreicht";
           }
 
           let tr = document.createElement('tr');

@@ -194,6 +194,11 @@ input[type=submit] {
   margin-left: 10px;
 }
 
+a.new_profile {
+  pointer-events:none;
+  background-color:gray;
+}
+
 /*
  FORM -> increaser
 */
