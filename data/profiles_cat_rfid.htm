@@ -10,25 +10,33 @@
     <script src="main.js"></script>
 
     <script>
-        function build_cat_rfid() {
+        var jsonData = JSON.parse('{"cats":{"c1_name":"Balu","c1_uid":21654,"c1_lastfeedingtime":"2019-01-18T16:00:13Z","c1_extra_amount_size":"2","c1_extra_amount_number":3,"c1_extra_amount_count":0,"c1_extra_delay":60,"c1_created":1,"c2_name":"Lisa","c2_uid":48428,"c2_lastfeedingtime":"2019-01-18T16:00:13Z","c2_extra_amount_size":"4","c2_extra_amount_number":2,"c2_extra_amount_count":0,"c2_extra_delay":60,"c2_created":1},"feedingtimes":{"time_1_h":1,"time_1_m":2,"time_2_h":3,"time_2_m":4,"time_3_h":5,"time_3_m":6,"time_4_h":7,"time_4_m":8,"time_amount_size":1},"statistics":{"configured":true,"startdate":"2019-01-18T16:00:13Z","last_savedate":"2019-01-18T16:00:13Z","total_amount_number":[150,80]}}');
+
+
+        function build_cat_rfid(data) {
             let input = document.getElementById('rfid');
+            let cat_name = document.getElementById('cat_name');
 
             if (getQueryVariable("c1_uid")) {
                 input.setAttribute('value', getQueryVariable("c1_uid"));
+                cat_name.innerHTML = data.cats['c1_name'];
             }
             if (getQueryVariable("c2_uid")) {
                 input.setAttribute('value', getQueryVariable("c2_uid"));
+                cat_name.innerHTML = data.cats['c2_name'];
             }
             if (getQueryVariable("c3_uid")) {
                 input.setAttribute('value', getQueryVariable("c3_uid"));
+                cat_name.innerHTML = data.cats['c3_name'];
             }
             if (getQueryVariable("c4_uid")) {
                 input.setAttribute('value', getQueryVariable("c4_uid"));
+                cat_name.innerHTML = data.cats['c4_name'];
             }
         }
 
         window.onload = function () {
-            build_cat_rfid();
+            build_cat_rfid(jsonData);
         }
     </script>
 </head>
@@ -57,7 +65,7 @@
 
             <ul class="breadcrumb">
                 <li><a href="profiles.htm">Profile</a></li>
-                <li>Name der Katze</li>
+                <li id="cat_name">Name der Katze</li>
                 <li>RFID</li>
             </ul>
 

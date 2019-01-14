@@ -40,26 +40,31 @@
             let number_extra_food = document.getElementById('number_extra_food');
             let quantity_per_portion = document.getElementById('quantity_per_portion');
             let lock_after_feeding = document.getElementById('lock_after_feeding');
+            let cat_name = document.getElementById('cat_name');
 
             if (getQueryVariable("c1_uid")) {
                 number_extra_food.setAttribute('value', data.cats['c1_extra_amount_number']);
                 quantity_per_portion.setAttribute('value', data.cats['c1_extra_amount_size']);
                 lock_after_feeding.setAttribute('value', data.cats['c1_extra_delay']);
+                cat_name.innerHTML = data.cats['c1_name'];
             }
             if (getQueryVariable("c2_uid")) {
                 number_extra_food.setAttribute('value', data.cats['c2_extra_amount_number']);
                 quantity_per_portion.setAttribute('value', data.cats['c2_extra_amount_size']);
                 lock_after_feeding.setAttribute('value', data.cats['c2_extra_delay']);
+                cat_name.innerHTML = data.cats['c2_name'];
             }
             if (getQueryVariable("c3_uid")) {
                 number_extra_food.setAttribute('value', data.cats['c3_extra_amount_number']);
                 quantity_per_portion.setAttribute('value', data.cats['c3_extra_amount_size']);
                 lock_after_feeding.setAttribute('value', data.cats['c3_extra_delay']);
+                cat_name.innerHTML = data.cats['c3_name'];
             }
             if (getQueryVariable("c4_uid")) {
                 number_extra_food.setAttribute('value', data.cats['c4_extra_amount_number']);
                 quantity_per_portion.setAttribute('value', data.cats['c4_extra_amount_size']);
                 lock_after_feeding.setAttribute('value', data.cats['c4_extra_delay']);
+                cat_name.innerHTML = data.cats['c4_name'];
             }
         }
 
@@ -92,7 +97,7 @@
 
             <ul class="breadcrumb">
                 <li><a href="profiles.htm">Profile</a></li>
-                <li>Name der Katze</li>
+                <li id="cat_name">Name der Katze</li>
                 <li>Futtermenge</li>
             </ul>
 

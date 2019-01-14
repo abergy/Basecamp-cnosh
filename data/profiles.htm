@@ -153,7 +153,7 @@
 
     function popup(uid) {
       var button = document.getElementById('delete_button');
-      button.setAttribute('onclick', 'delete_cat(' + uid + ')')
+      button.setAttribute('onclick', 'delete_cat(' + uid + ')');
     }
   </script>
 </head>
@@ -184,10 +184,10 @@
 
       <div id="popup1" class="overlay">
         <div class="popup">
-          <h2>Name der Katze löschen</h2>
+          <h2>Katze löschen</h2>
           <a class="close" href="#">&times;</a>
           <div class="content">
-            Bist du sicher das Name der Katze gelöscht werden soll?
+            Bist du sicher das die Katze gelöscht werden soll?
             <a class="button right" href="#">Nein</a>
             <button id="delete_button" class="button right">Ja</button>
           </div>
