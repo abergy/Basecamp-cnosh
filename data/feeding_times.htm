@@ -25,14 +25,15 @@
     }
 
     /* id: element id
+       minValue: minimal allow input value
        steps: step size per click */
-    function decreaseValue(id, steps) {
+    function decreaseValue(id, minValue, steps) {
       var value = parseInt(document.getElementById(id).value, 10);
       value = isNaN(value) ? 0 : value;
       value < 1 ? value = 1 : '';
       value = value - steps;
-      if (value < 0) {
-        value = 0;
+      if (value < minValue) {
+        value = minValue;
       }
       document.getElementById(id).value = value;
     }
@@ -124,7 +125,7 @@
         button_dec_m.innerHTML = '-';
         button_dec_m.setAttribute('id', 'decrease');
         button_dec_m.setAttribute(
-          'onclick', 'decreaseValue(\'feeding_time_' + (i + 1) + '_m\', 10)');
+          'onclick', 'decreaseValue(\'feeding_time_' + (i + 1) + '_m\', 0, 10)');
         button_dec_m.setAttribute('value', 'Decrease Value');
 
         let input_m = document.createElement('input');
@@ -177,7 +178,7 @@
       button_dec_amount.setAttribute('class', 'value-button');
       button_dec_amount.innerHTML = '-';
       button_dec_amount.setAttribute('id', 'decrease');
-      button_dec_amount.setAttribute('onclick', 'decreaseValue(\'amount\', 1)');
+      button_dec_amount.setAttribute('onclick', 'decreaseValue(\'amount\', 1, 1)');
       button_dec_amount.setAttribute('value', 'Decrease Value');
 
       let input_amount = document.createElement('input');
