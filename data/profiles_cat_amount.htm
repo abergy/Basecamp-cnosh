@@ -12,33 +12,56 @@
     <script>
         jsonData = 'cnosh.json';
 
+        function load() {
+            console.log('CNosh JSON loaded');
+            var request = new XMLHttpRequest();
+
+            function transferComplete() {
+                var data = JSON.parse(this.responseText);
+                build_cat_amount(data);
+            };
+
+            function transferFailed(evt) {
+                console.log(
+                    'Looks like there was a problem. Status Code: ' + request.status);
+                addElementToDom(
+                    'h1', 'error', 'Could not load configuration: ' + request.status, {
+                        'style': 'color:red'
+                    });
+                return;
+            };
+            request.addEventListener('load', transferComplete);
+            request.addEventListener('error', transferFailed);
+            request.open('GET', jsonData);
+            request.send();
+        };
         /* id: element id
            maxValue: maximale allow input value
            steps: step size per click */
         function increaseValue(id, maxValue, steps) {
-        var value = parseInt(document.getElementById(id).value, 10);
-        if (value >= maxValue) {
-            value = maxValue;
-        } else {
-            value = isNaN(value) ? 0 : value;
-            value = value + steps;
-        }
-        document.getElementById(id).value = value;
+            var value = parseInt(document.getElementById(id).value, 10);
+            if (value >= maxValue) {
+                value = maxValue;
+            } else {
+                value = isNaN(value) ? 0 : value;
+                value = value + steps;
+            }
+            document.getElementById(id).value = value;
         }
 
-    /* id: element id
-       minValue: minimal allow input value
-       steps: step size per click */
-    function decreaseValue(id, minValue, steps) {
-      var value = parseInt(document.getElementById(id).value, 10);
-      value = isNaN(value) ? 0 : value;
-      value < 1 ? value = 1 : '';
-      value = value - steps;
-      if (value < minValue) {
-        value = minValue;
-      }
-      document.getElementById(id).value = value;
-    }
+        /* id: element id
+           minValue: minimal allow input value
+           steps: step size per click */
+        function decreaseValue(id, minValue, steps) {
+            var value = parseInt(document.getElementById(id).value, 10);
+            value = isNaN(value) ? 0 : value;
+            value < 1 ? value = 1 : '';
+            value = value - steps;
+            if (value < minValue) {
+                value = minValue;
+            }
+            document.getElementById(id).value = value;
+        }
 
         function build_cat_amount(data) {
             let number_extra_food = document.getElementById('number_extra_food');
@@ -46,34 +69,37 @@
             let lock_after_feeding = document.getElementById('lock_after_feeding');
             let cat_name = document.getElementById('cat_name');
 
-            if (getQueryVariable("c1_uid")) {
+            if (getQueryFirstKey() === "c1_uid") {
                 number_extra_food.setAttribute('value', data.cats['c1_extra_amount_number']);
                 quantity_per_portion.setAttribute('value', data.cats['c1_extra_amount_size']);
                 lock_after_feeding.setAttribute('value', data.cats['c1_extra_delay']);
+                number_extra_food.setAttribute('amount-config', 'c1_extra_amount_number');
+                quantity_per_portion.setAttribute('amount-config', 'c1_extra_amount_size');
+                lock_after_feeding.setAttribute('amount-config', 'c1_extra_delay');
                 cat_name.innerHTML = data.cats['c1_name'];
             }
-            if (getQueryVariable("c2_uid")) {
+            if (getQueryFirstKey() === "c2_uid") {
                 number_extra_food.setAttribute('value', data.cats['c2_extra_amount_number']);
                 quantity_per_portion.setAttribute('value', data.cats['c2_extra_amount_size']);
                 lock_after_feeding.setAttribute('value', data.cats['c2_extra_delay']);
+                number_extra_food.setAttribute('amount-config', 'c2_extra_amount_number');
+                quantity_per_portion.setAttribute('amount-config', 'c2_extra_amount_size');
+                lock_after_feeding.setAttribute('amount-config', 'c2_extra_delay');
                 cat_name.innerHTML = data.cats['c2_name'];
             }
-            if (getQueryVariable("c3_uid")) {
+            if (getQueryFirstKey() === "c3_uid") {
                 number_extra_food.setAttribute('value', data.cats['c3_extra_amount_number']);
                 quantity_per_portion.setAttribute('value', data.cats['c3_extra_amount_size']);
                 lock_after_feeding.setAttribute('value', data.cats['c3_extra_delay']);
+                number_extra_food.setAttribute('amount-config', 'c3_extra_amount_number');
+                quantity_per_portion.setAttribute('amount-config', 'c3_extra_amount_size');
+                lock_after_feeding.setAttribute('amount-config', 'c3_extra_delay');
                 cat_name.innerHTML = data.cats['c3_name'];
-            }
-            if (getQueryVariable("c4_uid")) {
-                number_extra_food.setAttribute('value', data.cats['c4_extra_amount_number']);
-                quantity_per_portion.setAttribute('value', data.cats['c4_extra_amount_size']);
-                lock_after_feeding.setAttribute('value', data.cats['c4_extra_delay']);
-                cat_name.innerHTML = data.cats['c4_name'];
             }
         }
 
         window.onload = function () {
-            build_cat_amount(jsonData);
+            load();
         }
     </script>
 </head>
@@ -106,15 +132,18 @@
             </ul>
 
             <div class="form">
-                <form action="profiles.htm" onsubmit='collect_cat_amount()'>
+                <form action="#" onsubmit='collect_cat_amount()'>
                     <div class="row">
                         <div class="col-15">
                             <label for="cat_name">Anzahl Extrafutter</label>
                         </div>
                         <div class="col-85">
-                            <div class="value-button" id="decrease" onclick="decreaseValue('number_extra_food', 0, 1)" value="Decrease Value">-</div>
-                            <input type="number" readonly="readonly" for="amount-config" id="number_extra_food" class="number" value="" />
-                            <div class="value-button" id="increase" onclick="increaseValue('number_extra_food', 5, 1)" value="Increase Value">+</div>
+                            <div class="value-button" id="decrease" onclick="decreaseValue('number_extra_food', 0, 1)"
+                                value="Decrease Value">-</div>
+                            <input type="number" readonly="readonly" id="number_extra_food" class="number"
+                                value="" />
+                            <div class="value-button" id="increase" onclick="increaseValue('number_extra_food', 5, 1)"
+                                value="Increase Value">+</div>
                         </div>
                     </div>
 
@@ -125,7 +154,8 @@
                         <div class="col-85">
                             <div class="value-button" id="decrease" onclick="decreaseValue('quantity_per_portion', 0, 1)"
                                 value="Decrease Value">-</div>
-                            <input type="number" readonly="readonly" for="amount-config" id="quantity_per_portion" class="number" value="" />
+                            <input type="number" readonly="readonly" id="quantity_per_portion"
+                                class="number" value="" />
                             <div class="value-button" id="increase" onclick="increaseValue('quantity_per_portion', 5, 1)"
                                 value="Increase Value">+</div>
                         </div>
@@ -136,9 +166,12 @@
                             <label for="cat_name">Sperre nach Fütterung (Minuten)</label>
                         </div>
                         <div class="col-85">
-                            <div class="value-button" id="decrease" onclick="decreaseValue('lock_after_feeding',30, 30)" value="Decrease Value">-</div>
-                            <input type="number" readonly="readonly" for="amount-config" id="lock_after_feeding" class="number" value="" />
-                            <div class="value-button" id="increase" onclick="increaseValue('lock_after_feeding', 120, 30)" value="Increase Value">+</div>
+                            <div class="value-button" id="decrease" onclick="decreaseValue('lock_after_feeding',30, 30)"
+                                value="Decrease Value">-</div>
+                            <input type="number" readonly="readonly" id="lock_after_feeding" class="number"
+                                value="" />
+                            <div class="value-button" id="increase" onclick="increaseValue('lock_after_feeding', 120, 30)"
+                                value="Increase Value">+</div>
                         </div>
                     </div>
 

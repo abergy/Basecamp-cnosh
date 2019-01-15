@@ -12,30 +12,56 @@
     <script>
         jsonData = 'cnosh.json';
 
+        function load() {
+            console.log('CNosh JSON loaded');
+            var request = new XMLHttpRequest();
+
+            function transferComplete() {
+                var data = JSON.parse(this.responseText);
+                build_cat_rfid(data);
+            };
+
+            function transferFailed(evt) {
+                console.log(
+                    'Looks like there was a problem. Status Code: ' + request.status);
+                addElementToDom(
+                    'h1', 'error', 'Could not load configuration: ' + request.status, {
+                        'style': 'color:red'
+                    });
+                return;
+            };
+            request.addEventListener('load', transferComplete);
+            request.addEventListener('error', transferFailed);
+            request.open('GET', jsonData);
+            request.send();
+        };
+
         function build_cat_rfid(data) {
             let input = document.getElementById('rfid');
             let cat_name = document.getElementById('cat_name');
 
-            if (getQueryVariable("c1_uid")) {
+            if (getQueryFirstKey() === "c1_uid") {
+                input.setAttribute('name', 'c1_uid');
+                input.setAttribute('rfid-config', 'c1_uid');
                 input.setAttribute('value', getQueryVariable("c1_uid"));
                 cat_name.innerHTML = data.cats['c1_name'];
             }
-            if (getQueryVariable("c2_uid")) {
+            if (getQueryFirstKey() === "c2_uid") {
+                input.setAttribute('name', 'c2_uid');
+                input.setAttribute('rfid-config', 'c2_uid');
                 input.setAttribute('value', getQueryVariable("c2_uid"));
                 cat_name.innerHTML = data.cats['c2_name'];
             }
-            if (getQueryVariable("c3_uid")) {
+            if (getQueryFirstKey() === "c3_uid") {
+                input.setAttribute('name', 'c3_uid');
+                input.setAttribute('rfid-config', 'c3_uid');
                 input.setAttribute('value', getQueryVariable("c3_uid"));
                 cat_name.innerHTML = data.cats['c3_name'];
-            }
-            if (getQueryVariable("c4_uid")) {
-                input.setAttribute('value', getQueryVariable("c4_uid"));
-                cat_name.innerHTML = data.cats['c4_name'];
             }
         }
 
         window.onload = function () {
-            build_cat_rfid(jsonData);
+            load();
         }
     </script>
 </head>
@@ -69,26 +95,26 @@
             </ul>
 
             <div class="form">
-                    <form action="#" onsubmit='collect_rfid()'>
-                        <div class="row">
-                            <a href="javascript:search_rfid();" class="button left">RFID suchen</a>
+                <form action="#" onsubmit='collect_rfid()'>
+                    <div class="row">
+                        <a href="javascript:search_rfid();" class="button left">RFID suchen</a>
+                    </div>
+                    <div class="row">
+                        <div class="col-15">
+                            <label for="rfid">RFID Kennung</label>
                         </div>
-                        <div class="row">
-                            <div class="col-15">
-                                <label for="rfid">RFID Kennung</label>
-                            </div>
-                            <div class="col-85">
-                                <input type="text" id="rfid" name="rfid" placeholder="">
-                            </div>
+                        <div class="col-85">
+                            <input type="text" id="rfid" placeholder="">
                         </div>
-                        <div class="row">
-                            <input type="submit" value="Speichern">
-                        </div>
-                    </form>
-                </div>
-
+                    </div>
+                    <div class="row">
+                        <input type="submit" value="Speichern">
+                    </div>
+                </form>
             </div>
-        </main>
+
+    </div>
+    </main>
     </div>
 </body>
 

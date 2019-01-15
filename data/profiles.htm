@@ -82,8 +82,8 @@
 
       let profile_count = 0;
 
-      for (let i = 0; i <= 3; i++) {
-        if (data.cats['c' + (i + 1) + '_created'] === 1) {
+      for (let i = 0; i < 3; i++) {
+        if (data.cats['c' + (i + 1) + '_created'] === "1") {
 
           profile_count++;
 
@@ -146,7 +146,7 @@
     }
 
     window.onload = function () {
-      build_profiles(jsonData);
+      load();
     }
 
     function popup(uid, name) {
