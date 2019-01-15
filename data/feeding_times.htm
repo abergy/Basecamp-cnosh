@@ -13,16 +13,19 @@
     /* id: element id
        maxValue: maximale allow input value
        steps: step size per click */
-    function increaseValue(id, maxValue, steps) {
-      var value = parseInt(document.getElementById(id).value, 10);
-      if (value >= maxValue) {
-        value = maxValue;
-      } else {
-        value = isNaN(value) ? 0 : value;
-        value = value + steps;
-      }
-      document.getElementById(id).value = value;
-    }
+    /* id: element id
+           maxValue: maximale allow input value
+           steps: step size per click */
+           function increaseValue(id, maxValue, steps) {
+        var value = parseInt(document.getElementById(id).value, 10);
+        if (value >= maxValue) {
+            value = maxValue;
+        } else {
+            value = isNaN(value) ? 0 : value;
+            value = value + steps;
+        }
+        document.getElementById(id).value = value;
+        }
 
     /* id: element id
        minValue: minimal allow input value
@@ -141,7 +144,7 @@
         button_inc_m.innerHTML = '+';
         button_inc_m.setAttribute('id', 'increase');
         button_inc_m.setAttribute(
-          'onclick', 'increaseValue(\'feeding_time_' + (i + 1) + '_m\', 59, 10)');
+          'onclick', 'increaseValue(\'feeding_time_' + (i + 1) + '_m\', 50, 10)');
         button_inc_m.setAttribute('value', 'Increase Value');
 
         col_85.appendChild(hour_label);
