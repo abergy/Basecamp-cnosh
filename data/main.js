@@ -125,6 +125,7 @@ function collect_rfid() {
 	}
 }
 
+
 function collect_cat_amount() {
 	var configurationData = new FormData();
 
@@ -172,14 +173,14 @@ function reset_system() {
 	request.addEventListener("error", transferFailed);
 	request.open("POST", "/reset_system");
 	console.log("reset system");
-
+	request.send();
 	function transferFailed() {
 		alert("Es ist ein Fehler aufgetreten, bitte versuchen Sie es erneut.");
 	}
 
 	function transferComplete() {
-		alert("Die Katze wurde erfolgreich registriert.");
-	};
+		alert("System wurde erfolgreich zurückgesetzt. CNosh startet neu.");
+        };
 }
 
 function reset_statistics() {
@@ -188,13 +189,13 @@ function reset_statistics() {
 	request.addEventListener("error", transferFailed);
 	request.open("POST", "/reset_statistics");
 	console.log("reset statistics");
-
+	request.send();
 	function transferFailed() {
 		alert("Es ist ein Fehler aufgetreten, bitte versuchen Sie es erneut.");
 	}
 
 	function transferComplete() {
-		alert("Die Katze wurde erfolgreich registriert.");
+		alert("Statisticen wurden erfolgreich zurückgesetzt.");
 	};
 }
 
@@ -211,5 +212,22 @@ function delete_cat(uid) {
 
 	function transferComplete() {
 		alert('Katze mit der UID' + uid + 'gelöscht.');
+	};
+}
+
+function search_rfid() {
+	var request = new XMLHttpRequest();
+	request.addEventListener("load", transferComplete);
+	request.addEventListener("error", transferFailed);
+	request.open("POST", '/search_rfid');
+	console.log('Searching rfid.');
+	request.send();
+	function transferFailed() {
+		alert("Es ist ein Fehler aufgetreten, bitte versuchen Sie es erneut.");
+	}
+
+	function transferComplete() {
+		//alert('Katze mit der UID' + uid + 'gelöscht.');
+		console.log("RFID gefunden");
 	};
 }
