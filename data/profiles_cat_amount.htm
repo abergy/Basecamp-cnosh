@@ -26,15 +26,19 @@
         document.getElementById(id).value = value;
         }
 
-        /* id: element id
-           steps: step size per click */
-        function decreaseValue(id, steps) {
-        var value = parseInt(document.getElementById(id).value, 10);
-        value = isNaN(value) ? 0 : value;
-        value < 1 ? value = 1 : '';
-        value = value - steps;
-        document.getElementById(id).value = value;
-        }
+    /* id: element id
+       minValue: minimal allow input value
+       steps: step size per click */
+    function decreaseValue(id, minValue, steps) {
+      var value = parseInt(document.getElementById(id).value, 10);
+      value = isNaN(value) ? 0 : value;
+      value < 1 ? value = 1 : '';
+      value = value - steps;
+      if (value < minValue) {
+        value = minValue;
+      }
+      document.getElementById(id).value = value;
+    }
 
         function build_cat_amount(data) {
             let number_extra_food = document.getElementById('number_extra_food');
@@ -108,7 +112,7 @@
                             <label for="cat_name">Anzahl Extrafutter</label>
                         </div>
                         <div class="col-85">
-                            <div class="value-button" id="decrease" onclick="decreaseValue('number_extra_food', 1)" value="Decrease Value">-</div>
+                            <div class="value-button" id="decrease" onclick="decreaseValue('number_extra_food', 0, 1)" value="Decrease Value">-</div>
                             <input type="number" readonly="readonly" for="amount-config" id="number_extra_food" class="number" value="" />
                             <div class="value-button" id="increase" onclick="increaseValue('number_extra_food', 5, 1)" value="Increase Value">+</div>
                         </div>
@@ -119,7 +123,7 @@
                             <label for="cat_name">Menge pro Portion</label>
                         </div>
                         <div class="col-85">
-                            <div class="value-button" id="decrease" onclick="decreaseValue('quantity_per_portion', 1)"
+                            <div class="value-button" id="decrease" onclick="decreaseValue('quantity_per_portion', 0, 1)"
                                 value="Decrease Value">-</div>
                             <input type="number" readonly="readonly" for="amount-config" id="quantity_per_portion" class="number" value="" />
                             <div class="value-button" id="increase" onclick="increaseValue('quantity_per_portion', 5, 1)"
@@ -132,9 +136,9 @@
                             <label for="cat_name">Sperre nach Fütterung (Minuten)</label>
                         </div>
                         <div class="col-85">
-                            <div class="value-button" id="decrease" onclick="decreaseValue('lock_after_feeding', 5)" value="Decrease Value">-</div>
+                            <div class="value-button" id="decrease" onclick="decreaseValue('lock_after_feeding',30, 30)" value="Decrease Value">-</div>
                             <input type="number" readonly="readonly" for="amount-config" id="lock_after_feeding" class="number" value="" />
-                            <div class="value-button" id="increase" onclick="increaseValue('lock_after_feeding', 120, 5)" value="Increase Value">+</div>
+                            <div class="value-button" id="increase" onclick="increaseValue('lock_after_feeding', 120, 30)" value="Increase Value">+</div>
                         </div>
                     </div>
 
