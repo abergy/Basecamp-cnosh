@@ -122,7 +122,7 @@
 
           let a_column4 = document.createElement('a');
           a_column4.setAttribute('href', '#popup1');
-          a_column4.setAttribute('onclick', 'popup(' + data.cats['c' + (i + 1) + '_uid'] + ')');
+          a_column4.setAttribute('onclick', 'popup(' + data.cats['c' + (i + 1) + '_uid'] + ', ' + '\'' + data.cats['c' + (i + 1) + '_name'] + '\'' + ')');
           
           a_column4.innerHTML = 'löschen';
 
@@ -151,9 +151,11 @@
       build_profiles(jsonData);
     }
 
-    function popup(uid) {
+    function popup(uid, name) {
       var button = document.getElementById('delete_button');
       button.setAttribute('onclick', 'delete_cat(' + uid + ')');
+      var head = document.getElementById('head');
+      head.innerHTML = 'Soll ' + name + ' wirklich gelöscht werden?';
     }
   </script>
 </head>
@@ -184,10 +186,10 @@
 
       <div id="popup1" class="overlay">
         <div class="popup">
-          <h2>Katze löschen</h2>
+          <h2 id="head">Katze löschen</h2>
           <a class="close" href="#">&times;</a>
           <div class="content">
-            Bist du sicher das die Katze gelöscht werden soll?
+            Das Profil wird damit unwiderruflich gelöscht.
             <a class="button right" href="#">Nein</a>
             <button id="delete_button" class="button right">Ja</button>
           </div>
