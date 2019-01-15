@@ -31,6 +31,9 @@
       value = isNaN(value) ? 0 : value;
       value < 1 ? value = 1 : '';
       value = value - steps;
+      if (value < 0) {
+        value = 0;
+      }
       document.getElementById(id).value = value;
     }
 
