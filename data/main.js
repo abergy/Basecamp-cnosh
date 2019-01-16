@@ -31,6 +31,7 @@ function getQueryVariable(variable) {
     }
     return (false);
 }
+
 function getQueryFirstKey() {
     var query = window.location.search.substring(1);
     var vars = query.split("&");
@@ -226,4 +227,33 @@ function search_rfid() {
         // alert('Katze mit der UID' + uid + 'gelöscht.');
         console.log("RFID gefunden");
     };
+}
+
+function collect_cat_name() {
+    var configurationData = new FormData();
+    var value = document.getElementById('cat_name').value;
+
+    if (value && value !== '') {
+        configurationData.append(getQueryFirstKey(), value);
+    }
+
+
+    if (getQueryFirstKey() === "c1_uid" || getQueryFirstKey() === "c2_uid" ||
+        getQueryFirstKey() === "c3_uid") {
+        var request = new XMLHttpRequest();
+        request.addEventListener("load", transferComplete);
+        request.addEventListener("error", transferFailed);
+        request.open("POST", "/add_cat");
+        console.log("Sending name");
+        request.send(configurationData);
+
+        function transferFailed() {
+            alert(
+                "Es ist ein Fehler aufgetreten, bitte versuchen Sie es erneut.");
+        }
+
+        function transferComplete() {
+            alert("Die Katze wurde erfolgreich erstellt.");
+        };
+    }
 }

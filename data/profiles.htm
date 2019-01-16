@@ -10,7 +10,11 @@
   <script src="main.js"></script>
 
   <script>
-    jsonData = 'cnosh.json';
+    var jsonData = JSON.parse(
+      '{"cats": {"c1_name": "Balu","c1_uid": 0,"c1_lastfeedingtime": "2019-01-18T16:00:13Z","c1_extra_amount_size": 1,"c1_extra_amount_number": 3,"c1_extra_amount_count": 0,"c1_extra_delay": 60,"c1_created": "1","c2_name": "Lisa","c2_uid": "654321","c2_lastfeedingtime": "2019-01-18T16:00:13Z","c2_extra_amount_size": 2,"c2_extra_amount_number": 2,"c2_extra_amount_count": 0,"c2_extra_delay": 30,"c2_created": "1","c3_name": "","c3_uid": 0,"c3_lastfeedingtime": "","c3_extra_amount_size": 0,"c3_extra_amount_number": 0,"c3_extra_amount_count": 0,"c3_extra_delay": 0,"c3_created": "0"},"feedingtimes": {"time_1_h": 9,"time_1_m": 15,"time_2_h": 13,"time_2_m": 0,"time_3_h": 19,"time_3_m": 30,"time_4_h": 22,"time_4_m": 0,"time_amount_size": 2},"statistics": {"startdate": "2019-01-18T16:00:13Z","last_savedate": "2019-01-18T16:00:13Z","lastfeedingtime": "2019-01-18T16:00:13Z","total_amount_time": 150,"total_amount_extra": 80,"cnosh_configuration": 0}}'
+    );
+
+    //jsonData = 'cnosh.json';
 
     function load() {
       console.log('CNosh JSON loaded');
@@ -87,7 +91,7 @@
 
           profile_count++;
 
-          if (profile_count > 2)  {
+          if (profile_count > 3)  {
             //new_profile.style.display = "none";
             new_profile.setAttribute('class', 'button new_profile');
             new_profile.innerHTML = "Maximale Anzahl erreicht";
@@ -135,6 +139,10 @@
 
           tbody.appendChild(tr);
         }
+
+        if (data.cats['c' + (i + 1) + '_created'] === "0") {
+          new_profile.setAttribute('href', 'profiles_add.htm?c' + (i + 1) + '_uid=' + data.cats['c' + (i + 1) + '_uid']);
+        }
       }
 
       table.appendChild(thead);
@@ -146,7 +154,8 @@
     }
 
     window.onload = function () {
-      load();
+      //load();
+      build_profiles(jsonData);
     }
 
     function popup(uid, name) {
