@@ -10,6 +10,32 @@
     <script src="main.js"></script>
 
     <script>
+        jsonData = 'cats.json';
+
+            function load() {
+                console.log('CNosh JSON loaded');
+                var request = new XMLHttpRequest();
+
+                function transferComplete() {
+                    var data = JSON.parse(this.responseText);
+                    build_cat_amount(data);
+                };
+
+                function transferFailed(evt) {
+                    console.log(
+                        'Looks like there was a problem. Status Code: ' + request.status);
+                    addElementToDom(
+                        'h1', 'error', 'Could not load configuration: ' + request.status, {
+                            'style': 'color:red'
+                        });
+                    return;
+                };
+                request.addEventListener('load', transferComplete);
+                request.addEventListener('error', transferFailed);
+                request.open('GET', jsonData);
+                request.send();
+            };
+        
         /* id: element id
            maxValue: maximale allow input value
            steps: step size per click */
@@ -71,7 +97,7 @@
         }
 
         window.onload = function () {
-            build_cat_amount();
+           load();
         }
     </script>
 </head>

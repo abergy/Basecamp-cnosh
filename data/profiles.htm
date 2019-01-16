@@ -124,7 +124,8 @@
 
           let a_column4 = document.createElement('a');
           a_column4.setAttribute('href', '#popup1');
-          a_column4.setAttribute('onclick', 'popup(' + 'c' + (i + 1) + '_uid' + ', ' + '\'' + data.cats['c' + (i + 1) + '_name'] + '\'' + ')');
+          let popup_delete = 'popup(\'c' + (i + 1) + '_uid\', \'' + data.cats['c' + (i + 1) + '_name'] + '\')';
+          a_column4.setAttribute('onclick', popup_delete);
           
           a_column4.innerHTML = 'löschen';
 
@@ -160,7 +161,7 @@
 
     function popup(key, name) {
       var button = document.getElementById('delete_button');
-      button.setAttribute('onclick', 'delete_cat(' + key + ')');
+      button.setAttribute('onclick', 'delete_cat(\'' + key + '\')');
       var head = document.getElementById('head');
       head.innerHTML = 'Soll ' + name + ' wirklich gelöscht werden?';
     }

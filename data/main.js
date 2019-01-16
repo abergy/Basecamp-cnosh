@@ -200,7 +200,7 @@ function delete_cat(key) {
     if (key === "c1_uid" || key === "c2_uid" || key === "c3_uid") {
         var configurationData = new FormData();
         var configurationKey = key;
-        var configurationValue = "";
+        var configurationValue = "temp";
         configurationData.append(configurationKey, configurationValue);
 
         var request = new XMLHttpRequest();
