@@ -10,33 +10,7 @@
     <script src="main.js"></script>
 
     <script>
-        jsonData = 'cnosh.json';
-
-        function load() {
-            console.log('CNosh JSON loaded');
-            var request = new XMLHttpRequest();
-
-            function transferComplete() {
-                var data = JSON.parse(this.responseText);
-                build_cat_rfid(data);
-            };
-
-            function transferFailed(evt) {
-                console.log(
-                    'Looks like there was a problem. Status Code: ' + request.status);
-                addElementToDom(
-                    'h1', 'error', 'Could not load configuration: ' + request.status, {
-                        'style': 'color:red'
-                    });
-                return;
-            };
-            request.addEventListener('load', transferComplete);
-            request.addEventListener('error', transferFailed);
-            request.open('GET', jsonData);
-            request.send();
-        };
-
-        function build_cat_rfid(data) {
+        function build_cat_rfid() {
             let input = document.getElementById('rfid');
             let cat_name = document.getElementById('cat_name');
 
@@ -44,24 +18,21 @@
                 input.setAttribute('name', 'c1_uid');
                 input.setAttribute('rfid-config', 'c1_uid');
                 input.setAttribute('value', getQueryVariable("c1_uid"));
-                cat_name.innerHTML = data.cats['c1_name'];
             }
             if (getQueryFirstKey() === "c2_uid") {
                 input.setAttribute('name', 'c2_uid');
                 input.setAttribute('rfid-config', 'c2_uid');
                 input.setAttribute('value', getQueryVariable("c2_uid"));
-                cat_name.innerHTML = data.cats['c2_name'];
             }
             if (getQueryFirstKey() === "c3_uid") {
                 input.setAttribute('name', 'c3_uid');
                 input.setAttribute('rfid-config', 'c3_uid');
                 input.setAttribute('value', getQueryVariable("c3_uid"));
-                cat_name.innerHTML = data.cats['c3_name'];
             }
         }
 
         window.onload = function () {
-            load();
+            build_cat_rfid();
         }
     </script>
 </head>

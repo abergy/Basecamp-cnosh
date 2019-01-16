@@ -10,31 +10,6 @@
     <script src="main.js"></script>
 
     <script>
-        jsonData = 'cnosh.json';
-
-        function load() {
-            console.log('CNosh JSON loaded');
-            var request = new XMLHttpRequest();
-
-            function transferComplete() {
-                var data = JSON.parse(this.responseText);
-                build_cat_amount(data);
-            };
-
-            function transferFailed(evt) {
-                console.log(
-                    'Looks like there was a problem. Status Code: ' + request.status);
-                addElementToDom(
-                    'h1', 'error', 'Could not load configuration: ' + request.status, {
-                        'style': 'color:red'
-                    });
-                return;
-            };
-            request.addEventListener('load', transferComplete);
-            request.addEventListener('error', transferFailed);
-            request.open('GET', jsonData);
-            request.send();
-        };
         /* id: element id
            maxValue: maximale allow input value
            steps: step size per click */
@@ -63,7 +38,7 @@
             document.getElementById(id).value = value;
         }
 
-        function build_cat_amount(data) {
+        function build_cat_amount() {
             let number_extra_food = document.getElementById('number_extra_food');
             let quantity_per_portion = document.getElementById('quantity_per_portion');
             let lock_after_feeding = document.getElementById('lock_after_feeding');
@@ -76,7 +51,6 @@
                 number_extra_food.setAttribute('amount-config', 'c1_extra_amount_number');
                 quantity_per_portion.setAttribute('amount-config', 'c1_extra_amount_size');
                 lock_after_feeding.setAttribute('amount-config', 'c1_extra_delay');
-                cat_name.innerHTML = data.cats['c1_name'];
             }
             if (getQueryFirstKey() === "c2_uid") {
                 number_extra_food.setAttribute('value', data.cats['c2_extra_amount_number']);
@@ -85,7 +59,6 @@
                 number_extra_food.setAttribute('amount-config', 'c2_extra_amount_number');
                 quantity_per_portion.setAttribute('amount-config', 'c2_extra_amount_size');
                 lock_after_feeding.setAttribute('amount-config', 'c2_extra_delay');
-                cat_name.innerHTML = data.cats['c2_name'];
             }
             if (getQueryFirstKey() === "c3_uid") {
                 number_extra_food.setAttribute('value', data.cats['c3_extra_amount_number']);
@@ -94,12 +67,11 @@
                 number_extra_food.setAttribute('amount-config', 'c3_extra_amount_number');
                 quantity_per_portion.setAttribute('amount-config', 'c3_extra_amount_size');
                 lock_after_feeding.setAttribute('amount-config', 'c3_extra_delay');
-                cat_name.innerHTML = data.cats['c3_name'];
             }
         }
 
         window.onload = function () {
-            load();
+            build_cat_amount();
         }
     </script>
 </head>

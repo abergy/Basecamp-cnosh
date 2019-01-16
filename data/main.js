@@ -196,20 +196,29 @@ function reset_statistics() {
     };
 }
 
-function delete_cat(uid) {
-    var request = new XMLHttpRequest();
-    request.addEventListener("load", transferComplete);
-    request.addEventListener("error", transferFailed);
-    request.open("POST", '/delete_cat');
-    console.log('Katze mit der UID: ' + uid + ' wurde gelöscht.');
+function delete_cat(key) {
+    if (key === "c1_uid" || key === "c2_uid" || key === "c3_uid") {
+        var configurationData = new FormData();
+        var configurationKey = key;
+        var configurationValue = "";
+        configurationData.append(configurationKey, configurationValue);
 
-    function transferFailed() {
-        alert("Es ist ein Fehler aufgetreten, bitte versuchen Sie es erneut.");
+        var request = new XMLHttpRequest();
+        request.addEventListener("load", transferComplete);
+        request.addEventListener("error", transferFailed);
+        request.open("POST", "/delete_cat");
+        console.log("Sending delete");
+        request.send(configurationData);
+
+        function transferFailed() {
+            alert(
+                "Es ist ein Fehler aufgetreten, bitte versuchen Sie es erneut.");
+        }
+
+        function transferComplete() {
+            alert("Die Katze wurde erfolgreich gelöscht.");
+        };
     }
-
-    function transferComplete() {
-        alert('Katze mit der UID' + uid + 'gelöscht.');
-    };
 }
 
 function search_rfid() {
