@@ -228,13 +228,17 @@ function search_rfid() {
     request.open("POST", '/search_rfid');
     console.log('Searching rfid.');
     request.send();
+  
     function transferFailed() {
         alert("Es ist ein Fehler aufgetreten, bitte versuchen Sie es erneut.");
     }
 
     function transferComplete() {
-        // alert('Katze mit der UID' + uid + 'gelöscht.');
-        console.log("RFID gefunden");
+        if (request.status == 200) {
+            let response = JSON.parse(request.responseText);
+            let input = document.getElementById('rfid');
+            input.setAttribute("value", response['uid']);
+        }
     };
 }
 
@@ -255,7 +259,7 @@ function collect_cat_name() {
         request.open("POST", "/add_cat");
         console.log("Sending name");
         request.send(configurationData);
-
+        
         function transferFailed() {
             alert(
                 "Es ist ein Fehler aufgetreten, bitte versuchen Sie es erneut.");
