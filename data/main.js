@@ -144,8 +144,9 @@ function collect_cat_amount() {
         configurationData.append(configurationKey, configurationValue);
 	}
 
-        if (queryFirstKey === "c1_uid" || queryFirstKey === "c2_uid" ||
-            queryFirstKey === "c3_uid") {
+        if (queryFirstKey === "c1_extra_amount_number" ||
+            queryFirstKey === "c2_extra_amount_numberd" ||
+            queryFirstKey === "c3_extra_amount_number") {
             var request = new XMLHttpRequest();
             request.addEventListener("load", transferComplete);
             request.addEventListener("error", transferFailed);
