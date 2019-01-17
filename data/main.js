@@ -105,7 +105,7 @@ function collect_feedingtimes() {
 function collect_rfid() {
     var configurationData = new FormData();
     configurationElements = document.body.querySelectorAll('*[rfid-config]');
-
+    let queryFirstKey = getQueryFirstKey();
     for (var i = configurationElements.length - 1; i >= 0; i--) {
         var configurationKey =
             configurationElements[i].getAttribute("rfid-config");
@@ -113,8 +113,8 @@ function collect_rfid() {
         configurationData.append(configurationKey, configurationValue);
     }
 
-    if (getQueryFirstKey() === "c1_uid" || getQueryFirstKey() === "c2_uid" ||
-        getQueryFirstKey() === "c3_uid") {
+    if (queryFirstKey === "c1_uid" || queryFirstKey === "c2_uid" ||
+        queryFirstKey === "c3_uid") {
         var request = new XMLHttpRequest();
         request.addEventListener("load", transferComplete);
         request.addEventListener("error", transferFailed);
@@ -136,32 +136,61 @@ function collect_rfid() {
 function collect_cat_amount() {
     var configurationData = new FormData();
 	configurationElements = document.body.querySelectorAll('*[amount-config]');
-	
+    let queryFirstKey = getQueryFirstKey();
     for (var i = configurationElements.length - 1; i >= 0; i--) {
         var configurationKey =
             configurationElements[i].getAttribute("amount-config");
         var configurationValue = configurationElements[i].value;
         configurationData.append(configurationKey, configurationValue);
 	}
-	
-	if (getQueryFirstKey() === "c1_uid" ||
-		getQueryFirstKey() === "c2_uid" || getQueryFirstKey() === "c3_uid") {
-		var request = new XMLHttpRequest();
-		request.addEventListener("load", transferComplete);
-		request.addEventListener("error", transferFailed);
-		request.open("POST", "/set_amount");
-		console.log("Sending amount");
-		request.send(configurationData);
 
-		function transferFailed() {
-			alert(
-				"Es ist ein Fehler aufgetreten, bitte versuchen Sie es erneut.");
-		}
+        if (queryFirstKey === "c1_uid" || queryFirstKey === "c2_uid" ||
+            queryFirstKey === "c3_uid") {
+            var request = new XMLHttpRequest();
+            request.addEventListener("load", transferComplete);
+            request.addEventListener("error", transferFailed);
+            request.open("POST", "/set_amount");
+            console.log("Sending amount");
+            request.send(configurationData);
 
-		function transferComplete() {
-			alert("Die Futtermenge wurde erfolgreich gespeichert.");
-		};
-	}
+            function transferFailed() {
+                alert(
+                    "Es ist ein Fehler aufgetreten, bitte versuchen Sie es erneut.");
+            }
+
+            function transferComplete() {
+                alert("Die Futtermenge wurde erfolgreich gespeichert.");
+            };
+        }
+}
+
+function collect_cat_name() {
+    var configurationData = new FormData();
+    configurationElements = document.body.querySelectorAll('*[name-config]');
+    let queryFirstKey = getQueryFirstKey();
+    var value = document.getElementById('cat_name').value;
+    if (value && value !== '') {
+        configurationData.append(queryFirstKey, value);
+    }
+
+    if (queryFirstKey === "c1_name" || queryFirstKey === "c2_name" ||
+        queryFirstKey === "c3_name") {
+        var request = new XMLHttpRequest();
+        request.addEventListener("load", transferComplete);
+        request.addEventListener("error", transferFailed);
+        request.open("POST", "/add_cat");
+        console.log("Sending cat name");
+        request.send(configurationData);
+
+        function transferFailed() {
+            alert(
+                "Es ist ein Fehler aufgetreten, bitte versuchen Sie es erneut.");
+        }
+
+        function transferComplete() {
+            alert("Katze wurde erfolgreich hinzugefügt.");
+        };
+    }
 }
 
 function reset_system() {
@@ -240,33 +269,4 @@ function search_rfid() {
             input.setAttribute("value", response['uid']);
         }
     };
-}
-
-function collect_cat_name() {
-    var configurationData = new FormData();
-    var value = document.getElementById('cat_name').value;
-
-    if (value && value !== '') {
-        configurationData.append(getQueryFirstKey(), value);
-    }
-
-
-    if (getQueryFirstKey() === "c1_uid" || getQueryFirstKey() === "c2_uid" ||
-        getQueryFirstKey() === "c3_uid") {
-        var request = new XMLHttpRequest();
-        request.addEventListener("load", transferComplete);
-        request.addEventListener("error", transferFailed);
-        request.open("POST", "/add_cat");
-        console.log("Sending name");
-        request.send(configurationData);
-        
-        function transferFailed() {
-            alert(
-                "Es ist ein Fehler aufgetreten, bitte versuchen Sie es erneut.");
-        }
-
-        function transferComplete() {
-            alert("Die Katze wurde erfolgreich erstellt.");
-        };
-    }
 }

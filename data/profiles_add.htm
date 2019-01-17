@@ -9,6 +9,18 @@
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="breadcrumb.css" />
     <script src="main.js"></script>
+    <script>
+        function build_add_cat() {
+            let input_cat_name = document.getElementById('cat_name');
+            input_cat_name.setAttribute('value', getQueryVariable(getQueryFirstKey()));
+            input_cat_name.setAttribute('name', getQueryFirstKey());
+            input_cat_name.setAttribute('name-config', getQueryFirstKey());
+        }
+
+        window.onload = function () {
+            build_add_cat();
+        }
+    </script>
 </head>
 
 <body>
